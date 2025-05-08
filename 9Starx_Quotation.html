@@ -1350,7 +1350,38 @@ function setupPrintHandlers() {
   window.addEventListener('afterprint', window.restoreDocumentAfterDisplay);
 }
 
-function N(e,t='info'){if(!e)return null;const r=document.querySelector('.notification-overlay');r&&(r.classList.remove('show'),setTimeout(()=>r.remove(),300));const n=document.createElement('div');n.className=`notification-overlay notification-${t}`;let i='',s='通知';t==='warning'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',s='注意'):t==='error'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',s='錯誤'):t==='success'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',s='成功'):i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',n.innerHTML=`<div class="notification-modal"><div class="notification-header"><div class="notification-title"><span class="notification-icon">${i}</span><span>${s}</span></div></div><div class="notification-content">${e}</div><div class="notification-footer"><button class="notification-btn">我知道了</button></div></div>`,document.body.appendChild(n),n.offsetHeight,n.classList.add('show');const c=n.querySelector('.notification-btn');c&&(c.addEventListener('click',()=>{n.classList.remove('show'),setTimeout(()=>n.remove(),300)}),setTimeout(()=>c.focus(),100));const l=e=>{(e.key==='Escape'||e.key==='Enter')&&(n.classList.remove('show'),setTimeout(()=>{n.remove(),document.removeEventListener('keydown',l)},300))};return document.addEventListener('keydown',l),n}function h(e){if(e)try{const t=document.createRange(),r=window.getSelection();r&&(t.selectNodeContents(e),t.collapse(!1),r.removeAllRanges(),r.addRange(t))}catch{}}function y(e=T,t=''){try{const r=M[e.getMonth()],n=e.getFullYear().toString().slice(-2),i=String(e.getMonth()+1).padStart(2,"0"),s=String(e.getDate()).padStart(2,"0"),c=Math.random().toString(36).substring(2,4).toUpperCase();return`${t}${r}-${n}${i}${s}${c}`}catch{return`${t}${Math.random().toString(36).substring(2,8).toUpperCase()}`}}function E(){try{const e=d('quoteDate'),t=e?.value||T.toISOString().split("T")[0],r=new Date(t),n=d('quoteNumber');n&&(n.textContent=y(r))}catch{}}function I(){try{const e=d('quoteDate'),t=d('quoteDateText');if(e&&t){e.value=T.toISOString().split("T")[0],t.textContent=F.formatDate(e.value);const r=new Date(e.value),n=d('quoteValidUntil'),i=d('quoteValidText');if(n&&i){const s=new Date(r);s.setDate(r.getDate()+C.DEFAULT_VALID_DAYS),n.value=s.toISOString().split("T")[0],i.textContent=F.formatDate(n.value)}const o=d('deliveryDate'),l=d('deliveryDateText');if(o&&l){const s=new Date(r);s.setDate(r.getDate()+C.DEFAULT_DELIVERY_DAYS),o.value=s.toISOString().split("T")[0],l.textContent=F.formatDate(o.value)}}}catch{}E()}function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7;t++){const r=document.createElement("tr");r.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(r)}f()}catch{}}function v(){const e=d('itemsTableBody');if(e)try{const t=document.createElement("tr");t.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(t),f()}catch{}}function f(){const e=d('itemsTableBody'),t=d('subtotal'),r=d('totalShipping'),n=d('totalInstallation'),i=d('depositAmount'),s=d('grandTotal'),c=d('taxType'),l=d('taxAmount');if(!e||!s)return;let o=0,p=0,m=0;try{Array.from(e.children).forEach(u=>{const L=u.querySelector(".price-input"),w=u.querySelector(".quantity-input"),k=u.querySelector(".shipping-input"),B=u.querySelector(".installation-input");if(!L||!w)return;const V=F.parseNumber(L.value||"0"),W=Math.max(0,F.parseNumber(w.value||"0",!1)),O=F.parseNumber(k?.value||"0"),X=F.parseNumber(B?.value||"0");o+=Math.round(V*W),p+=O,m+=X});const y=o+p+m,x=c&&c.value==="taxed",U=x?Math.round(y*C.TAX_RATE):0,R=y+U,X=Math.round(R*C.DEPOSIT_RATE);t&&(t.textContent=F.formatCurrency(o)),r&&(r.textContent=F.formatCurrency(p)),n&&(n.textContent=F.formatCurrency(m)),i&&(i.textContent=F.formatCurrency(X)),s&&(s.textContent=F.formatCurrency(R)),l&&(l.textContent=F.formatCurrency(U))}catch{}}function _(e){if(!e)return;const t=e.value;if(t==='')return;try{(e.classList.contains('price-input')||e.classList.contains('shipping-input')||e.classList.contains('installation-input'))&&(t=>{const r=F.parseNumber(t);return r>C.MAX_VALUE?(N("數值超出最大限制","warning"),e.value=F.formatCurrency(C.MAX_VALUE)):r<C.MIN_VALUE?(N("數值超出最小限制","warning"),e.value=F.formatCurrency(C.MIN_VALUE)):e.value=F.formatCurrency(r),!0})(t)}catch{e.value=F.formatCurrency(0)}}function $(e){if(!e)return;try{const t=F.formatText(e.innerText.replace(/\n/g,"").trim(),e.getAttribute("data-type"));if(t===e.innerText)return;const r=window.getSelection();if(!r)return;const n=document.createRange();n.selectNodeContents(e),r.removeAllRanges(),r.addRange(n),document.execCommand("insertText",!1,t),h(e)}catch{}}function q(e){
+function N(e,t='info'){if(!e)return null;const r=document.querySelector('.notification-overlay');r&&(r.classList.remove('show'),setTimeout(()=>r.remove(),300));const n=document.createElement('div');n.className=`notification-overlay notification-${t}`;let i='',s='通知';t==='warning'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',s='注意'):t==='error'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',s='錯誤'):t==='success'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',s='成功'):i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',n.innerHTML=`<div class="notification-modal"><div class="notification-header"><div class="notification-title"><span class="notification-icon">${i}</span><span>${s}</span></div></div><div class="notification-content">${e}</div><div class="notification-footer"><button class="notification-btn">我知道了</button></div></div>`,document.body.appendChild(n),n.offsetHeight,n.classList.add('show');const c=n.querySelector('.notification-btn');c&&(c.addEventListener('click',()=>{n.classList.remove('show'),setTimeout(()=>n.remove(),300)}),setTimeout(()=>c.focus(),100));const l=e=>{(e.key==='Escape'||e.key==='Enter')&&(n.classList.remove('show'),setTimeout(()=>{n.remove(),document.removeEventListener('keydown',l)},300))};return document.addEventListener('keydown',l),n}function h(e){if(e)try{const t=document.createRange(),r=window.getSelection();r&&(t.selectNodeContents(e),t.collapse(!1),r.removeAllRanges(),r.addRange(t))}catch{}}function y(e=T,t=''){try{const r=M[e.getMonth()],n=e.getFullYear().toString().slice(-2),i=String(e.getMonth()+1).padStart(2,"0"),s=String(e.getDate()).padStart(2,"0"),c=Math.random().toString(36).substring(2,4).toUpperCase();return`${t}${r}-${n}${i}${s}${c}`}catch{return`${t}${Math.random().toString(36).substring(2,8).toUpperCase()}`}}function E(){try{const e=d('quoteDate'),t=e?.value||T.toISOString().split("T")[0],r=new Date(t),n=d('quoteNumber');n&&(n.textContent=y(r))}catch{}}function I(){
+  try{
+    const e=d('quoteDate'),
+          t=d('quoteDateText');
+    if(e&&t){
+      e.value=T.toISOString().split("T")[0];
+      t.textContent=F.formatDate(e.value);
+      
+      const r=new Date(e.value),
+            n=d('quoteValidUntil'),
+            i=d('quoteValidText');
+      if(n&&i){
+        const s=new Date(r);
+        s.setDate(r.getDate()+C.DEFAULT_VALID_DAYS);
+        n.value=s.toISOString().split("T")[0];
+        i.textContent=F.formatDate(n.value);
+      }
+      
+      const o=d('deliveryDate'),
+            l=d('deliveryDateText');
+      if(o&&l){
+        const s=new Date(r);
+        s.setDate(r.getDate()+C.DEFAULT_DELIVERY_DAYS);
+        o.value=s.toISOString().split("T")[0];
+        l.textContent=F.formatDate(o.value);
+      }
+    }
+  }catch{}
+  E();
+}
+
+function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7;t++){const r=document.createElement("tr");r.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(r)}f()}catch{}}function v(){const e=d('itemsTableBody');if(e)try{const t=document.createElement("tr");t.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(t),f()}catch{}}function f(){const e=d('itemsTableBody'),t=d('subtotal'),r=d('totalShipping'),n=d('totalInstallation'),i=d('depositAmount'),s=d('grandTotal'),c=d('taxType'),l=d('taxAmount');if(!e||!s)return;let o=0,p=0,m=0;try{Array.from(e.children).forEach(u=>{const L=u.querySelector(".price-input"),w=u.querySelector(".quantity-input"),k=u.querySelector(".shipping-input"),B=u.querySelector(".installation-input");if(!L||!w)return;const V=F.parseNumber(L.value||"0"),W=Math.max(0,F.parseNumber(w.value||"0",!1)),O=F.parseNumber(k?.value||"0"),X=F.parseNumber(B?.value||"0");o+=Math.round(V*W),p+=O,m+=X});const y=o+p+m,x=c&&c.value==="taxed",U=x?Math.round(y*C.TAX_RATE):0,R=y+U,X=Math.round(R*C.DEPOSIT_RATE);t&&(t.textContent=F.formatCurrency(o)),r&&(r.textContent=F.formatCurrency(p)),n&&(n.textContent=F.formatCurrency(m)),i&&(i.textContent=F.formatCurrency(X)),s&&(s.textContent=F.formatCurrency(R)),l&&(l.textContent=F.formatCurrency(U))}catch{}}function _(e){if(!e)return;const t=e.value;if(t==='')return;try{(e.classList.contains('price-input')||e.classList.contains('shipping-input')||e.classList.contains('installation-input'))&&(t=>{const r=F.parseNumber(t);return r>C.MAX_VALUE?(N("數值超出最大限制","warning"),e.value=F.formatCurrency(C.MAX_VALUE)):r<C.MIN_VALUE?(N("數值超出最小限制","warning"),e.value=F.formatCurrency(C.MIN_VALUE)):e.value=F.formatCurrency(r),!0})(t)}catch{e.value=F.formatCurrency(0)}}function $(e){if(!e)return;try{const t=F.formatText(e.innerText.replace(/\n/g,"").trim(),e.getAttribute("data-type"));if(t===e.innerText)return;const r=window.getSelection();if(!r)return;const n=document.createRange();n.selectNodeContents(e),r.removeAllRanges(),r.addRange(n),document.execCommand("insertText",!1,t),h(e)}catch{}}function q(e){
   e.preventDefault();
   const t=D[e.target.id];
   if(!t) return;
@@ -1367,7 +1398,53 @@ function N(e,t='info'){if(!e)return null;const r=document.querySelector('.notifi
   if(!e||!t) return;
   function handleDateChange() {
     if(t) {
+      const quoteDate = d('quoteDate');
+      const quoteDateValue = new Date(quoteDate.value);
+      const currentDate = new Date(e.value);
+      
+      // 檢查有效期限和預計交期是否早於報價日
+      if (e.id === 'quoteValidUntil' || e.id === 'deliveryDate') {
+        if (currentDate < quoteDateValue) {
+          N('本欄位不得早於報價日', 'warning');
+          
+          // 根據欄位類型設置正確的日期
+          const newDate = new Date(quoteDateValue);
+          if (e.id === 'quoteValidUntil') {
+            newDate.setDate(quoteDateValue.getDate() + C.DEFAULT_VALID_DAYS);
+          } else if (e.id === 'deliveryDate') {
+            newDate.setDate(quoteDateValue.getDate() + C.DEFAULT_DELIVERY_DAYS);
+          }
+          
+          // 更新日期值
+          e.value = newDate.toISOString().split('T')[0];
+          t.textContent = F.formatDate(e.value);
+          return;
+        }
+      }
+      
       t.textContent = F.formatDate(e.value);
+
+      // 當報價日期變動時，更新其他日期
+      if (e.id === 'quoteDate') {
+        const validUntil = d('quoteValidUntil');
+        const validUntilText = d('quoteValidText');
+        const deliveryDate = d('deliveryDate');
+        const deliveryDateText = d('deliveryDateText');
+
+        if (validUntil && validUntilText) {
+          const newValidDate = new Date(quoteDateValue);
+          newValidDate.setDate(quoteDateValue.getDate() + C.DEFAULT_VALID_DAYS);
+          validUntil.value = newValidDate.toISOString().split('T')[0];
+          validUntilText.textContent = F.formatDate(validUntil.value);
+        }
+
+        if (deliveryDate && deliveryDateText) {
+          const newDeliveryDate = new Date(quoteDateValue);
+          newDeliveryDate.setDate(quoteDateValue.getDate() + C.DEFAULT_DELIVERY_DAYS);
+          deliveryDate.value = newDeliveryDate.toISOString().split('T')[0];
+          deliveryDateText.textContent = F.formatDate(deliveryDate.value);
+        }
+      }
     }
     if(typeof r === 'function') {
       r.call(e);
@@ -1624,6 +1701,16 @@ function Q(){
         r=d('logo-container'),
         n=d('upload-logo');
   
+  // Add date picker event handlers
+  Object.entries(D).forEach(([textId, inputId]) => {
+    const textElement = d(textId);
+    const inputElement = d(inputId);
+    if (textElement && inputElement) {
+      textElement.addEventListener('click', q);
+      H(inputElement, textElement);
+    }
+  });
+
   const U=d('quoteTable');
   if (U) {
     const i = '.price-input, .shipping-input, .installation-input',
