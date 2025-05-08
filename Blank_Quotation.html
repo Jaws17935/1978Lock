@@ -45,10 +45,10 @@ body{background-color:var(--bg-light);color:var(--text);line-height:1.5;font-siz
 .items-section{padding:8px 20px}
 .section-title-with-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid var(--border)}
 .items-controls{display:flex;align-items:center;gap:6px;margin-left:10px}
-.row-btn{background:none;border:none;cursor:pointer;font-size:16px;font-weight:600;width:20px;height:20px;text-align:center;line-height:18px;transition:all .2s;padding:0;border-radius:3px}
-.row-btn.add{color:var(--success);background-color:rgba(21,128,61,0.1)}
-.row-btn.delete{color:var(--danger);background-color:rgba(229,62,62,0.1)}
-.row-btn:hover{transform:scale(1.1);opacity:.85}
+.row-btn{background:none;border:none;cursor:pointer;font-size:18px;font-weight:700;width:24px;height:24px;text-align:center;line-height:20px;transition:all .2s;padding:0}
+.row-btn.add{color:var(--success)}
+.row-btn.delete{color:var(--danger)}
+.row-btn:hover{transform:scale(1.15);opacity:.85}
 table{width:100%;border-collapse:collapse;margin-top:8px;border-radius:5px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.03);border:none}
 table th{background-color:var(--primary);color:#fff;text-align:left;padding:6px 8px;font-weight:600;font-size:14px;border:none;letter-spacing:.5px}
 table th:first-child{border-top-left-radius:5px}
@@ -199,226 +199,313 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 
 /* 打印样式，统一布局并优化紧凑性 */
 @media print {
-  @page {
-    size: A4 portrait;
-    margin: 0.1cm;
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-
+  
   body, html {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     background-color: #fff !important;
-    width: 100% !important;
-    font-size: 10px !important;
+    width: 100%;
+    font-size: 12px !important;
   }
-
+  
   .container {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    padding: 0 !important;
     box-shadow: none !important;
-    background-color: #fff !important;
+    padding: 0 !important;
   }
-
+  
   .header {
-    padding: 4px 10px !important;
-    margin-bottom: 2px !important;
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    padding: 5px 10px !important;
   }
-
+  
+  .header * {
+    color: #fff !important;
+  }
+  
   .company-logo img {
-    max-height: 30px !important;
+    max-height: 40px !important;
   }
-
+  
   .default-logo-text {
-    font-size: 14px !important;
+    font-size: 18px !important;
   }
-
+  
   .document-title h2 {
-    font-size: 12px !important;
+    font-size: 16px !important;
     margin-bottom: 1px !important;
   }
-
+  
   .document-title p {
     margin-bottom: 1px !important;
-    font-size: 10px !important;
-  }
-
-  .quote-info {
-    padding: 2px 10px !important;
-    margin-bottom: 2px !important;
-    gap: 2px !important;
-  }
-
-  .section-title {
-    font-size: 10px !important;
-    margin-bottom: 1px !important;
-  }
-
-  .info-group p {
-    margin-bottom: 1px !important;
-    font-size: 10px !important;
-  }
-
-  .items-section {
-    padding: 2px 10px !important;
-    margin-bottom: 2px !important;
-  }
-
-  #quoteTable th {
-    padding: 3px 4px !important;
-    font-size: 10px !important;
-  }
-
-  #quoteTable td {
-    padding: 2px 4px !important;
-  }
-
-  .input-field {
-    font-size: 10px !important;
-    padding: 1px 2px !important;
-  }
-
-  .bank-totals-section {
-    padding: 2px 10px !important;
-    margin-bottom: 2px !important;
-    gap: 4px !important;
-  }
-
-  .bank-info-container, .totals-container {
-    min-height: 120px !important;
-  }
-
-  .bank-info {
-    padding: 2px 4px !important;
-  }
-
-  .bank-info .info-group p {
-    height: 16px !important;
-    font-size: 10px !important;
-  }
-
-  .bank-info .info-label {
-    font-size: 10px !important;
-    width: 65px !important;
-  }
-
-  .totals-row {
-    height: 16px !important;
-  }
-
-  .totals-label, .totals-value {
-    font-size: 10px !important;
-  }
-
-  .legal-terms-section {
-    padding: 2px 10px !important;
-    margin-bottom: 2px !important;
-    gap: 4px !important;
-  }
-
-  .legal-notice h4 {
-    font-size: 10px !important;
-    margin-bottom: 1px !important;
-  }
-
-  .legal-notice p {
-    font-size: 9px !important;
-    margin-bottom: 1px !important;
-  }
-
-  .warranty-term-table td {
-    padding: 1px 2px !important;
-    font-size: 9px !important;
-  }
-
-  .terms-list {
-    padding-left: 10px !important;
-    font-size: 9px !important;
-  }
-
-  .terms-list li {
-    margin-bottom: 1px !important;
-  }
-
-  .notes-container {
-    margin-top: 1px !important;
-    min-height: 20px !important;
-  }
-
-  #notes-textarea,
-  #notes-print-preview {
-    min-height: 20px !important;
-    max-height: 25px !important;
-    padding: 1px 2px !important;
-    font-size: 9px !important;
     line-height: 1.2 !important;
-    margin: 0 !important;
   }
-
-  .right-side-container {
-    gap: 2px !important;
+  
+  .quote-info {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px !important;
+    padding: 3px 10px !important;
+    background-color: var(--bg-highlight) !important;
   }
-
-  .terms-container {
-    margin-bottom: 2px !important;
+  
+  .client-info, .contact-info, .quote-details {
+    padding: 2px 5px !important;
   }
-
-  .terms-content {
-    padding: 2px !important;
-  }
-
-  .terms-list {
-    padding-left: 10px !important;
-    margin: 0 !important;
-  }
-
-  .terms-list li {
+  
+  .section-title {
     margin-bottom: 1px !important;
+    height: 15px !important;
+    font-size: 12px !important;
+  }
+  
+  .info-group p {
+    margin-bottom: 2px !important;
+    line-height: 1.2 !important;
+  }
+  
+  table th {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    padding: 3px 5px !important;
+    font-size: 12px !important;
+  }
+  
+  table td {
+    padding: 2px 5px !important;
+  }
+  
+  #quoteTable {
+    width: 100% !important;
+    table-layout: fixed !important;
+    page-break-inside: auto !important;
+    border-collapse: collapse !important;
+    border: 1px solid var(--border) !important;
+    margin-top: 3px !important;
+  }
+  
+  #quoteTable th, #quoteTable td {
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+  }
+  
+  #itemsTableBody tr {
+    display: table-row !important;
+    visibility: visible !important;
+    height: auto !important;
+    min-height: 18px !important;
+  }
+  
+  .input-field {
+    background-color: transparent !important;
+    border: none !important;
+    min-height: 14px !important;
+    font-size: 11px !important;
+    padding: 1px 4px !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  .bank-totals-section {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5px !important;
+    padding: 3px 10px !important;
+    align-items: stretch !important;
+  }
+  
+  .bank-info-container, .totals-container {
+    height: auto !important;
+    min-height: 120px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  .bank-info, .totals-table {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 4px 6px !important;
+    box-sizing: border-box !important;
+    background-color: #fff !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    margin-top: 0 !important;
+    height: 100% !important;
+  }
+  
+  .bank-info .info-group {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    margin: 0 !important;
+  }
+  
+  .totals-table {
+    height: 100% !important;
+  }
+  
+  .totals-row {
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .totals-row.totals-final {
+    height: 18px !important;
+    padding-top: 0 !important;
+    margin-top: auto !important;
+    border-top: 1px solid var(--border) !important;
+  }
+  
+  .totals-label, .totals-value {
+    font-size: 12px !important;
     line-height: 1.1 !important;
   }
-
-  .button-section {
+  
+  .legal-terms-section {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5px !important;
+    padding: 3px 10px !important;
+    background-color: var(--bg-highlight) !important;
+  }
+  
+  .legal-notice h4 {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+  }
+  
+  .legal-notice p {
+    font-size: 10px !important;
+    margin-bottom: 3px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .warranty-term-table td {
+    padding: 2px 3px !important;
+    font-size: 10px !important;
+  }
+  
+  .terms-list {
+    font-size: 10px !important;
+  }
+  
+  .terms-list li {
+    margin-bottom: 1px !important;
+    line-height: 1.15 !important;
+    font-size: 10px !important;
+  }
+  
+  .notes-container {
+    min-height: auto !important;
+    margin-top: 3px !important;
+  }
+  
+  #notes-textarea {
     display: none !important;
   }
-
-  .row-btn,
-  .upload-logo,
-  .items-controls {
+  
+  #notes-print-preview {
+    display: block !important;
+    width: 100% !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    background-color: var(--bg-light) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    padding: 8px !important;
+    color: var(--text-light) !important;
+    height: auto !important;
+    min-height: 65px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+    font-family: Arial, sans-serif !important;
+  }
+  
+  .signature-section {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 5px 10px !important;
+    gap: 5px !important;
+    background-color: var(--bg-highlight) !important;
+  }
+  
+  .staff-info, .client-confirmation {
+    width: 48% !important;
+    background-color: #fff !important;
+    padding: 5px !important;
+  }
+  
+  .header, .quote-info, .bank-totals-section, .legal-terms-section, .signature-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  table thead {
+    display: table-header-group !important;
+  }
+  
+  .items-controls, .row-btn, .upload-logo, .notification-overlay, .button-section {
     display: none !important;
   }
-
-  [contenteditable="true"] {
-    cursor: default !important;
-    pointer-events: none !important;
-    color: var(--text) !important;
-    background-color: transparent !important;
-    border: none !important;
-    -webkit-user-select: none !important;
-    user-select: none !important;
+  
+  @page {
+    size: A4 portrait;
+    margin: 0.5cm;
   }
-
-  input.input-field {
-    cursor: default !important;
-    pointer-events: none !important;
-    background-color: transparent !important;
-    border: none !important;
-    color: var(--text) !important;
-    -webkit-user-select: none !important;
-    user-select: none !important;
+  
+  .section-title-with-controls {
+    margin-bottom: 5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    border-bottom: 1px solid var(--border) !important;
   }
-
-  .client-info .editable-field,
-  .contact-info .editable-field,
-  .quote-details .editable-field,
-  .bank-info .editable-field,
-  .staff-info .editable-field,
-  .client-confirmation .editable-field {
-    color: var(--text) !important;
-    background-color: transparent !important;
-    border: none !important;
-    -webkit-user-select: none !important;
-    user-select: none !important;
+  
+  .items-controls, .row-btn, .upload-logo, .notification-overlay, .button-section {
+    display: none !important;
+  }
+  
+  .bank-info span[contenteditable="true"],
+  .totals-value {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.1 !important;
+    min-height: 16px !important;
+    display: inline-block !important;
+    overflow: hidden !important;
+  }
+  
+  .totals-value {
+    text-align: right !important;
+    padding-right: 5px !important;
+  }
+  
+  .bank-info .info-group p,
+  .totals-row {
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
 
@@ -563,6 +650,78 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     margin: 0 0 2px 0; /* Reduced from 3px to 2px */
     padding: 0; 
     line-height: 1.2; /* Reduced from 1.4 to 1.2 */
+}
+
+.client-info .info-group p {
+    color: var(--text-light);
+    word-wrap: break-word;
+}
+
+.client-info .info-group h4 {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Target the FIRST h4 element within .client-info .info-group */
+.client-info .info-group h4:nth-of-type(1) {
+    margin-bottom: 0; /* Remove margin-bottom */
+    padding-bottom: 8px; /* Reduced from 15px to 8px */
+}
+
+/* Ensure the SECOND h4 (address) has no extra top margin */
+.client-info .info-group h4:nth-of-type(2) {
+    margin-top: 0; /* Ensure no top margin */
+    padding-bottom: 0; /* Ensure no bottom padding */
+    margin-bottom: 2px; /* Reduced from 3px to 2px */
+}
+
+.client-info .info-group p,
+.client-info .info-group h4 {
+    display: block; 
+    width: 100%;
+    margin: 0 0 1px 0; /* Reduced from 2px to 1px */
+    padding: 0; 
+    line-height: 1.1; /* Reduced from 1.2 to 1.1 */
+}
+
+.client-info .info-group p {
+    color: var(--text-light);
+    word-wrap: break-word;
+}
+
+.client-info .info-group h4 {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Target the FIRST h4 element within .client-info .info-group */
+.client-info .info-group h4:nth-of-type(1) {
+    margin-bottom: 0; /* Remove margin-bottom */
+    padding-bottom: 4px; /* Reduced from 8px to 4px */
+}
+
+/* Ensure the SECOND h4 (address) has no extra top margin */
+.client-info .info-group h4:nth-of-type(2) {
+    margin-top: 0; /* Ensure no top margin */
+    padding-bottom: 0; /* Ensure no bottom padding */
+    margin-bottom: 1px; /* Reduced from 2px to 1px */
+}
+
+.client-info .info-group p,
+.client-info .info-group h4 {
+    display: block; 
+    width: 100%;
+    margin: 0; /* Remove all margins */
+    padding: 0; 
+    line-height: 1; /* Set to 1 for minimal spacing */
 }
 
 .client-info .info-group p {
@@ -727,166 +886,152 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     }
 }
 
+.section-title-with-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.items-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.row-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 20px;
+  transition: all .2s;
+  padding: 0;
+}
+
+.row-btn.add {
+  color: var(--success);
+}
+
+.row-btn.delete {
+  color: var(--danger);
+}
+
+.row-btn:hover {
+  transform: scale(1.15);
+  opacity: .85;
+}
+
 @media print {
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-  }
-  
-  body, html {
-    margin: 0;
-    padding: 0;
-    background-color: #fff !important;
-    width: 100%;
-    font-size: 11px !important;
-  }
-  
-  .container {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    background-color: #fff !important;
-  }
-  
-  .bank-totals-section {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
-    padding: 8px 20px !important;
-    background-color: var(--bg-highlight) !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  .bank-info-container, .totals-container {
-    height: auto !important;
-    min-height: 160px !important;
-  }
-  
-  .bank-info {
-    padding: 4px 6px !important;
-    box-sizing: border-box !important;
-    background-color: #fff !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 4px !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1) !important;
-    height: 100% !important;
-  }
-  
-  .bank-info .info-group {
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    height: 100% !important;
-    padding: 4px 0 !important;
-  }
-  
-  .bank-info .info-group p {
-    font-size: 12px !important;
-    height: 20px !important;
-    line-height: 1.2 !important;
-    margin: 0 !important;
-    padding: 1px 0 !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  
-  .bank-info .info-label {
-    font-size: 12px !important;
-    width: 70px !important;
-    font-weight: 600 !important;
-    color: var(--text-light) !important;
-  }
-  
-  .bank-info span[contenteditable="true"] {
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    line-height: 1.2 !important;
-    min-height: 16px !important;
-  }
-  
-  .bank-totals-section {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 6px !important;
-    padding: 6px 15px !important;
-    background-color: var(--bg-highlight) !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
-  
-  .totals-table {
-    width: 100% !important;
-    border: none !important;
-    background-color: #fff !important;
-    border-radius: 4px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    height: 100% !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1) !important;
-  }
-  
-  .totals-row {
-    height: 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    flex: 1 !important;
-  }
-  
-  .totals-row.totals-final {
-    border-top: 1px solid var(--border) !important;
-    padding-top: 3px !important;
-    height: 28px !important;
-    margin-top: auto !important;
-  }
-  
-  .totals-label {
-    width: 60% !important;
-    color: var(--text-light) !important;
-    font-size: 13px !important;
-    padding-left: 5px !important;
-  }
-  
-  .totals-value {
-    width: 40% !important;
-    text-align: right !important;
-    font-weight: 600 !important;
-    font-size: 13px !important;
-    padding-right: 5px !important;
-  }
-  
-  .clean-select {
-    border: none !important;
-    background: transparent !important;
-    width: 100% !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    color: var(--text-light) !important;
-    cursor: pointer !important;
-    outline: none !important;
-    line-height: 1.2 !important;
+  .items-controls, .row-btn {
+    display: none !important;
   }
 }
-// ... existing code ...
+
+.legal-terms-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 20px;
+  align-items: stretch;
+}
+
+.legal-notice-container, .right-side-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.legal-notice, .terms-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.terms-container {
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.notes-container {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+}
+
+#notes-textarea, #notes-print-preview {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+}
+
+@media print {
+  .legal-terms-section {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5px !important;
+    padding: 3px 10px !important;
+    align-items: stretch !important;
+  }
+  
+  .legal-notice-container, .right-side-container {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+  }
+  
+  .legal-notice, .terms-content {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+  }
+  
+  .terms-container {
+    margin-bottom: 12px !important; /* 從 8px 增加到 12px */
+    flex-shrink: 0 !important;
+  }
+  
+  .notes-container {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin-top: 12px !important; /* 從 8px 增加到 12px */
+    min-height: 0 !important;
+  }
+  
+  #notes-textarea, #notes-print-preview {
+    flex: 1 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    margin-top: 4px !important; /* 從 2px 增加到 4px */
+  }
+}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header section">
 <div class="company-info">
-<div class="company-logo" id="logo-container" style="margin-bottom: 5px;">
-  <img id="company-logo-img" style="display: none; max-height: 50px; object-fit: contain;">
-  <span class="default-logo-text" contenteditable="true" data-placeholder="請輸入公司名稱" style="color: #fff !important; display: inline-block; margin-bottom: 0; width: auto; min-width: 0; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">玖星吉國際貿易</span>
-</div>
+<div class="company-logo" id="logo-container"><span class="default-logo-text" contenteditable="true" data-placeholder="請輸入公司名稱" class="editable-field"></span></div>
 <input type="file" id="upload-logo" class="upload-logo" accept="image/*">
-<p style="margin: 0;">統編：<span contenteditable="true" class="editable-field" data-placeholder="請輸入統編" style="color: #fff !important; border-bottom: 1px dashed rgba(255,255,255,.5);">89061654</span></p>
-<p style="margin: 0;">電話：<span contenteditable="true" class="editable-field" data-placeholder="請輸入電話" data-type="phone" style="color: #fff !important; border-bottom: 1px dashed rgba(255,255,255,.5);">02-7709-4666</span></p>
-<p style="margin: 0;">信箱：<span contenteditable="true" class="editable-field" data-placeholder="請輸入信箱" data-type="email" style="color: #fff !important; border-bottom: 1px dashed rgba(255,255,255,.5);">Service@9Starmax.com</span></p>
+<p><span class="info-label">統編：</span><span contenteditable="true" data-placeholder="請輸入統編" class="editable-field"></span></p>
+<p><span class="info-label">電話：</span><span contenteditable="true" data-placeholder="請輸入電話" class="editable-field" data-type="phone"></span></p>
+<p><span class="info-label">信箱：</span><span contenteditable="true" data-placeholder="請輸入信箱" class="editable-field" data-type="email"></span></p>
 </div>
 <div class="document-title">
 <h2>商品報價單</h2>
@@ -924,11 +1069,11 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 </div>
 <div class="items-section section">
 <div class="section-title-with-controls">
-<div class="section-title">報價商品明細</div>
-<div class="items-controls">
-<button class="row-btn add" title="新增商品">+</button>
-<button class="row-btn delete" title="刪除商品">-</button>
-</div>
+  <div class="section-title">報價商品明細</div>
+  <div class="items-controls">
+    <button class="row-btn add" id="addItemBtn" title="新增商品">+</button>
+    <button class="row-btn delete" id="deleteItemBtn" title="刪除商品">-</button>
+  </div>
 </div>
 <div class="table-responsive">
 <table id="quoteTable">
@@ -956,90 +1101,6 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
 <td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
 </tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
-<tr>
-<td><input type="text" class="category-input input-field" placeholder=""></td>
-<td><input type="text" class="name-input input-field" placeholder=""></td>
-<td style="text-align:center">
-<input type="text" class="price-input input-field" value="">
-<span class="original-price"></span>
-</td>
-<td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-<td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-<td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1049,11 +1110,11 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <div class="section-title">銀行資訊</div>
 <div class="bank-info content-box-white">
 <div class="info-group">
-<p><span class="info-label">金融機構：</span><span contenteditable="true" data-placeholder="請輸入金融機構" class="editable-field">第一銀行</span></p>
-<p><span class="info-label">機構分支：</span><span contenteditable="true" data-placeholder="請輸入機構分支" class="editable-field">東港分行</span></p>
-<p><span class="info-label">金融戶名：</span><span contenteditable="true" data-placeholder="請輸入金融戶名" class="editable-field">玖吉發貿易行</span></p>
-<p><span class="info-label">金融代碼：</span><span contenteditable="true" data-placeholder="請輸入金融代碼" class="editable-field">007</span></p>
-<p><span class="info-label">金融帳號：</span><span contenteditable="true" data-placeholder="請輸入金融帳號" class="editable-field">7521-0068-870</span></p>
+<p><span class="info-label">金融機構：</span><span contenteditable="true" data-placeholder="請輸入金融機構" class="editable-field"></span></p>
+<p><span class="info-label">機構分支：</span><span contenteditable="true" data-placeholder="請輸入機構分支" class="editable-field"></span></p>
+<p><span class="info-label">金融戶名：</span><span contenteditable="true" data-placeholder="請輸入金融戶名" class="editable-field"></span></p>
+<p><span class="info-label">金融代碼：</span><span contenteditable="true" data-placeholder="請輸入金融代碼" class="editable-field"></span></p>
+<p><span class="info-label">金融帳號：</span><span contenteditable="true" data-placeholder="請輸入金融帳號" class="editable-field"></span></p>
 </div>
 </div>
 </div>
@@ -1126,9 +1187,9 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <div class="staff-info" id="staff-info">
 <div class="section-title" id="staff-title">銷售方資訊</div>
 <div class="info-group">
-<p><span class="info-label">姓名：</span> <span contenteditable="true" class="editable-field"></span></p>
-<p><span class="info-label">電話：</span> <span contenteditable="true" data-type="phone" class="editable-field">02-7709-4666</span></p>
-<p><span class="info-label">信箱：</span> <span contenteditable="true" data-type="email" class="editable-field">Service@9Starmax.com</span></p>
+<p><span class="info-label">姓名：</span> <span contenteditable="true" data-placeholder="請輸入姓名" class="editable-field"></span></p>
+<p><span class="info-label">電話：</span> <span contenteditable="true" data-type="phone" data-placeholder="請輸入電話" class="editable-field"></span></p>
+<p><span class="info-label">信箱：</span> <span contenteditable="true" data-type="email" data-placeholder="請輸入信箱" class="editable-field"></span></p>
 </div>
 </div>
 <div class="client-confirmation" id="client-confirmation">
@@ -1150,436 +1211,9 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  // 添加清空所有輸入欄位的函數
-  function clearAllInputs() {
-    // 清空所有 contenteditable 元素
-    document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-      el.textContent = '';
-    });
+const C={TAX_RATE:.05,DEPOSIT_RATE:.3,DEFAULT_VALID_DAYS:7,DEFAULT_DELIVERY_DAYS:28,MAX_VALUE:999999999,MIN_VALUE:-999999999},M=["JA","FE","MR","AP","MY","JN","JL","AU","SE","OC","NO","DE"],T=new Date,d=e=>document.getElementById(e),D={quoteDateText:'quoteDate',quoteValidText:'quoteValidUntil',deliveryDateText:'deliveryDate'},b=(e,t)=>function(){let r;clearTimeout(r),r=setTimeout(()=>e.apply(this,arguments),t)},F={parseNumber:(e,t=!1)=>{if(!e)return 0;try{const r=String(e).replace(/[^\d.-]/g,'').trim(),n=t?parseInt(r):parseFloat(r);return isNaN(n)?0:Math.min(C.MAX_VALUE,Math.max(C.MIN_VALUE,n))}catch{return 0}},formatCurrency:e=>{try{return isNaN(e)?'0':(t=Math.round(Math.min(C.MAX_VALUE,Math.max(C.MIN_VALUE,e))),new Intl.NumberFormat('zh-TW',{style:'decimal',minimumFractionDigits:0}).format(t));var t}catch{return Math.round(e).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}},formatText:(e,t)=>{if(!e)return'';if(t==="phone")return e.replace(/[^\d\s()+\-]/g,"").trim().substring(0,20);if(t==="email")return e.replace(/\s/g,"").trim().substring(0,50);return e.trim().substring(0,500)},formatDate:e=>{if(!e)return'';try{return new Date(e).toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'})}catch{return e}}};
 
-    // 清空所有 input 元素
-    document.querySelectorAll('input').forEach(input => {
-      input.value = '';
-    });
-
-    // 清空 textarea
-    const textarea = document.getElementById('notes-textarea');
-    if (textarea) {
-      textarea.value = '';
-    }
-
-    // 重置日期顯示
-    const dateDisplays = document.querySelectorAll('.date-display');
-    dateDisplays.forEach(display => {
-      display.textContent = '';
-    });
-
-    // 重置日期輸入
-    const dateInputs = document.querySelectorAll('input[type="date"]');
-    dateInputs.forEach(input => {
-      input.value = '';
-    });
-
-    // 重置報價單號
-    const quoteNumber = document.getElementById('quoteNumber');
-    if (quoteNumber) {
-      quoteNumber.textContent = '';
-    }
-
-    // 重置總計金額
-    document.getElementById('totalInstallation').textContent = '0';
-    document.getElementById('totalShipping').textContent = '0';
-    document.getElementById('taxAmount').textContent = '0';
-    document.getElementById('depositAmount').textContent = '0';
-    document.getElementById('grandTotal').textContent = '0';
-
-    // 重置稅率選擇
-    const taxType = document.getElementById('taxType');
-    if (taxType) {
-      taxType.value = 'untaxed';
-    }
-  }
-
-  // 調用清空函數
-  clearAllInputs();
-
-  const C={TAX_RATE:.05,DEPOSIT_RATE:.3,DEFAULT_VALID_DAYS:7,DEFAULT_DELIVERY_DAYS:60,MAX_VALUE:999999999,MIN_VALUE:-999999999},
-        M=["JA","FE","MR","AP","MY","JN","JL","AU","SE","OC","NO","DE"],
-        T=new Date,
-        d=e=>document.getElementById(e),
-        D={quoteDateText:'quoteDate',quoteValidText:'quoteValidUntil',deliveryDateText:'deliveryDate'},
-        b=(e,t)=>function(){let r;clearTimeout(r),r=setTimeout(()=>e.apply(this,arguments),t)},
-        F={
-          parseNumber:(e,t=!1)=>{if(!e)return 0;try{const r=String(e).replace(/[^\d.-]/g,'').trim(),n=t?parseInt(r):parseFloat(r);return isNaN(n)?0:Math.min(C.MAX_VALUE,Math.max(C.MIN_VALUE,n))}catch{return 0}},
-          formatCurrency:e=>{try{return isNaN(e)?'0':(t=Math.round(Math.min(C.MAX_VALUE,Math.max(C.MIN_VALUE,e))),new Intl.NumberFormat('zh-TW',{style:'decimal',minimumFractionDigits:0}).format(t));var t}catch{return Math.round(e).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}},
-          formatText:(e,t)=>{if(!e)return'';if(t==="phone")return e.replace(/[^\d\s()+\-]/g,"").trim().substring(0,20);if(t==="email")return e.replace(/\s/g,"").trim().substring(0,50);return e.trim().substring(0,500)},
-          formatDate:e=>{if(!e)return'';try{return new Date(e).toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'})}catch{return e}}
-        };
-
-  // Add notification function
-  function N(message, type = 'info') {
-    // Create notification overlay if it doesn't exist
-    let overlay = document.querySelector('.notification-overlay');
-    if (!overlay) {
-      overlay = document.createElement('div');
-      overlay.className = 'notification-overlay';
-      document.body.appendChild(overlay);
-    }
-
-    // Create notification modal
-    const modal = document.createElement('div');
-    modal.className = `notification-modal ${type ? `notification-${type}` : ''}`;
-    
-    // Create header with icon
-    const header = document.createElement('div');
-    header.className = 'notification-header';
-    const title = document.createElement('div');
-    title.className = 'notification-title';
-    
-    // Add appropriate icon based on type
-    const icon = document.createElement('div');
-    icon.className = 'notification-icon';
-    switch(type) {
-      case 'error':
-        icon.innerHTML = '❌';
-        break;
-      case 'warning':
-        icon.innerHTML = '⚠️';
-        break;
-      default:
-        icon.innerHTML = 'ℹ️';
-    }
-    
-    title.appendChild(icon);
-    title.appendChild(document.createTextNode(type === 'error' ? '錯誤' : type === 'warning' ? '警告' : '提示'));
-    header.appendChild(title);
-    
-    // Create close button
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '×';
-    closeBtn.style.cssText = 'background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-light);';
-    closeBtn.onclick = () => {
-      overlay.classList.remove('show');
-      setTimeout(() => overlay.remove(), 300);
-    };
-    header.appendChild(closeBtn);
-    
-    // Create content
-    const content = document.createElement('div');
-    content.className = 'notification-content';
-    content.textContent = message;
-    
-    // Create footer with OK button
-    const footer = document.createElement('div');
-    footer.className = 'notification-footer';
-    const okBtn = document.createElement('button');
-    okBtn.className = 'notification-btn';
-    okBtn.textContent = '確定';
-    okBtn.onclick = () => {
-      overlay.classList.remove('show');
-      setTimeout(() => overlay.remove(), 300);
-    };
-    footer.appendChild(okBtn);
-    
-    // Assemble modal
-    modal.appendChild(header);
-    modal.appendChild(content);
-    modal.appendChild(footer);
-    overlay.appendChild(modal);
-    
-    // Show notification
-    requestAnimationFrame(() => {
-      overlay.classList.add('show');
-    });
-    
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      if (overlay.parentNode) {
-        overlay.classList.remove('show');
-        setTimeout(() => overlay.remove(), 300);
-      }
-    }, 5000);
-  }
-
-  function S(e){if(e){e.style.height='auto';void e.offsetHeight;e.style.height=e.scrollHeight+'px'}}
-
-  // Add item row functionality
-  function addItemRow() {
-    const tbody = document.getElementById('itemsTableBody');
-    if (!tbody) return;
-
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td><input type="text" class="category-input input-field" placeholder=""></td>
-      <td><input type="text" class="name-input input-field" placeholder=""></td>
-      <td style="text-align:center">
-        <input type="text" class="price-input input-field" value="">
-        <span class="original-price"></span>
-      </td>
-      <td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td>
-      <td class="text-center"><input type="text" class="unit-input input-field" value=""></td>
-      <td class="text-center"><input type="text" class="installation-input input-field" value=""></td>
-      <td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>
-    `;
-
-    // Add event listeners to new inputs
-    const inputs = newRow.querySelectorAll('input');
-    inputs.forEach(input => {
-      input.addEventListener('input', calculateTotals);
-      input.addEventListener('change', calculateTotals);
-    });
-
-    tbody.appendChild(newRow);
-    calculateTotals();
-  }
-
-  function removeItemRow() {
-    const tbody = document.getElementById('itemsTableBody');
-    if (!tbody || tbody.children.length <= 1) {
-      N('至少需要保留一個商品項目', 'warning');
-      return;
-    }
-    tbody.removeChild(tbody.lastChild);
-    calculateTotals();
-  }
-
-  // Calculate totals function
-  function calculateTotals() {
-    let totalInstallation = 0;
-    let totalShipping = 0;
-    let subtotal = 0;
-
-    const rows = document.querySelectorAll('#itemsTableBody tr');
-    rows.forEach(row => {
-      const price = F.parseNumber(row.querySelector('.price-input').value);
-      const quantity = F.parseNumber(row.querySelector('.quantity-input').value);
-      const installation = F.parseNumber(row.querySelector('.installation-input').value);
-      const shipping = F.parseNumber(row.querySelector('.shipping-input').value);
-
-      totalInstallation += installation;
-      totalShipping += shipping;
-      subtotal += (price * quantity) + installation + shipping;
-    });
-
-    const taxAmount = subtotal * C.TAX_RATE;
-    const depositAmount = subtotal * C.DEPOSIT_RATE;
-    const grandTotal = subtotal + taxAmount;
-
-    // Update totals display
-    document.getElementById('totalInstallation').textContent = F.formatCurrency(totalInstallation);
-    document.getElementById('totalShipping').textContent = F.formatCurrency(totalShipping);
-    document.getElementById('taxAmount').textContent = F.formatCurrency(taxAmount);
-    document.getElementById('depositAmount').textContent = F.formatCurrency(depositAmount);
-    document.getElementById('grandTotal').textContent = F.formatCurrency(grandTotal);
-  }
-
-  // Initialize add/remove buttons
-  const addBtn = document.querySelector('.row-btn.add');
-  const removeBtn = document.querySelector('.row-btn.delete');
-
-  if (addBtn) {
-    addBtn.addEventListener('click', addItemRow);
-  }
-
-  if (removeBtn) {
-    removeBtn.addEventListener('click', removeItemRow);
-  }
-
-  // Add event listeners to existing inputs
-  const inputs = document.querySelectorAll('#itemsTableBody input');
-  inputs.forEach(input => {
-    input.addEventListener('input', calculateTotals);
-    input.addEventListener('change', calculateTotals);
-  });
-
-  // Initial calculation
-  calculateTotals();
-
-  // Move U to global scope
-  window.U = d('quoteTable');
-
-  function y(e=T,t=''){
-    try{
-      const r=M[e.getMonth()],
-            n=e.getFullYear().toString().slice(-2),
-            i=String(e.getMonth()+1).padStart(2,"0"),
-            s=String(e.getDate()).padStart(2,"0"),
-            c=Math.random().toString(36).substring(2,4).toUpperCase();
-      return`${t}${r}-${n}${i}${s}${c}`;
-    }catch{
-      return`${t}${Math.random().toString(36).substring(2,8).toUpperCase()}`;
-    }
-  }
-
-  function E(){
-    try{
-      const e=d('quoteDate'),
-            t=e?.value||T.toISOString().split("T")[0],
-            r=new Date(t),
-            n=d('quoteNumber');
-      n&&(n.textContent=y(r));
-    }catch{}
-  }
-
-  function H(e,t,r){
-    if(!e||!t) return;
-    function handleDateChange() {
-      if(t) {
-        t.textContent = F.formatDate(e.value);
-      }
-      if(typeof r === 'function') {
-        r.call(e);
-      }
-      if(e.id === 'quoteDate') {
-        E();
-      }
-    }
-    e.addEventListener('change', handleDateChange);
-    e.addEventListener('input', handleDateChange);
-  }
-
-  // Setup date pickers
-  const o=d('quoteDate'),l=d('quoteValidUntil'),p=d('deliveryDate');
-  o&&H(o,d('quoteDateText'),function(){
-    const i=d('quoteValidUntil'),s=d('deliveryDate'),c=new Date(this.value);
-    if(i){
-      const l=new Date(c);
-      l.setDate(c.getDate()+C.DEFAULT_VALID_DAYS);
-      i.value=l.toISOString().split("T")[0];
-      const p=d('quoteValidText');
-      p&&(p.textContent=F.formatDate(i.value));
-    }
-    if(s){
-      const l=new Date(c);
-      l.setDate(c.getDate()+C.DEFAULT_DELIVERY_DAYS);
-      s.value=l.toISOString().split("T")[0];
-      const p=d('deliveryDateText');
-      p&&(p.textContent=F.formatDate(s.value));
-    }
-  });
-
-  l&&H(l,d('quoteValidText'),function(){
-    const i=d('quoteDate');
-    if(!i)return;
-    const s=new Date(i.value),c=new Date(this.value);
-    if(c<s){
-      const l=new Date(s);
-      l.setDate(s.getDate()+C.DEFAULT_VALID_DAYS);
-      this.value=l.toISOString().split("T")[0];
-      const validText=d('quoteValidText');
-      if(validText){
-        validText.textContent=F.formatDate(this.value);
-      }
-      N("報價有效期不得早於報價日期；系統已自動修正為預設值","warning");
-    }
-  });
-
-  p&&H(p,d('deliveryDateText'),function(){
-    const i=d('quoteDate');
-    if(!i)return;
-    const s=new Date(i.value),c=new Date(this.value);
-    if(c<s){
-      const l=new Date(s);
-      l.setDate(s.getDate()+C.DEFAULT_DELIVERY_DAYS);
-      this.value=l.toISOString().split("T")[0];
-      const deliveryText=d('deliveryDateText');
-      if(deliveryText){
-        deliveryText.textContent=F.formatDate(this.value);
-      }
-      N("交期設定不得早於報價日期；系統已為您修正為預設值","warning");
-    }
-  });
-
-  // Add click handler for date displays
-  function q(e) {
-    const dateFieldId = D[e.target.id];
-    if (dateFieldId) {
-      const dateInput = d(dateFieldId);
-      if (dateInput) {
-        dateInput.dataset.pickerOpened = 'true';
-        dateInput.click();
-      }
-    }
-  }
-
-  function validateDateField(fieldId) {
-    const dateInput = d(fieldId);
-    if (!dateInput) return;
-    
-    const value = dateInput.value;
-    if (!value) return;
-    
-    const date = new Date(value);
-    if (isNaN(date.getTime())) {
-      dateInput.value = '';
-      N('無效的日期格式', 'error');
-      return;
-    }
-  }
-
-  document.querySelector('.container').addEventListener('click',i=>{
-    if(i.target.classList.contains('date-display')) {
-      q(i);
-      const dateFieldId = D[i.target.id];
-      if(dateFieldId) {
-        setTimeout(() => {
-          const dateInput = d(dateFieldId);
-          if(dateInput && dateInput.dataset.pickerOpened === 'true') {
-            // Show picker only after click
-            if('showPicker' in dateInput) {
-              dateInput.showPicker();
-            }
-            dateInput.addEventListener('blur', function onBlur() {
-              validateDateField(dateFieldId);
-              dateInput.removeEventListener('blur', onBlur);
-              delete dateInput.dataset.pickerOpened;
-            }, { once: true });
-          }
-        }, 100);
-      }
-    }
-  });
-
-  // Initialize dates immediately
-  function initializeDates() {
-    const quoteDate = d('quoteDate');
-    const quoteDateText = d('quoteDateText');
-    const quoteValidUntil = d('quoteValidUntil');
-    const quoteValidText = d('quoteValidText');
-    const deliveryDate = d('deliveryDate');
-    const deliveryDateText = d('deliveryDateText');
-
-    if (quoteDate && quoteDateText) {
-      // Set quote date to today
-      const today = T.toISOString().split('T')[0];
-      quoteDate.value = today;
-      quoteDateText.textContent = F.formatDate(today);
-
-      // Set valid until date (7 days from today)
-      const validDate = new Date(today);
-      validDate.setDate(validDate.getDate() + C.DEFAULT_VALID_DAYS);
-      const validDateStr = validDate.toISOString().split('T')[0];
-      if (quoteValidUntil && quoteValidText) {
-        quoteValidUntil.value = validDateStr;
-        quoteValidText.textContent = F.formatDate(validDateStr);
-      }
-
-      // Set delivery date (60 days from today)
-      const deliveryDateObj = new Date(today);
-      deliveryDateObj.setDate(deliveryDateObj.getDate() + C.DEFAULT_DELIVERY_DAYS);
-      const deliveryDateStr = deliveryDateObj.toISOString().split('T')[0];
-      if (deliveryDate && deliveryDateText) {
-        deliveryDate.value = deliveryDateStr;
-        deliveryDateText.textContent = F.formatDate(deliveryDateStr);
-      }
-    }
-  }
-
-  // Call initialization functions
-  initializeDates();
-  E(); // Generate quote number
-
-  // Define document preparation functions
+function setupPrintHandlers() {
   window.prepareDocumentForDisplay = function() {
     const quoteNumber = d('quoteNumber');
     if (quoteNumber && quoteNumber.textContent) {
@@ -1588,26 +1222,24 @@ document.addEventListener('DOMContentLoaded',()=>{
       document.title = quoteNumber.textContent;
     }
     
-    // Hide button section
-    const buttonSection = document.querySelector('.button-section');
-    if (buttonSection) {
-      buttonSection.style.display = 'none';
-    }
-    
     const textarea = d('notes-textarea');
     const preview = d('notes-print-preview');
     if (textarea && preview) {
-      S(textarea);
+      S(textarea); // Force height recalculation before reading scrollHeight
+      // Copy text content
       preview.textContent = textarea.value;
       
+      // Calculate and set height based on content
       const textareaHeight = textarea.scrollHeight;
-      const minHeight = 65;
+      const minHeight = 65; // Minimum height in pixels
       const adjustedHeight = Math.max(minHeight, textareaHeight);
       
+      // Set the height for both elements
       textarea.style.height = `${adjustedHeight}px`;
       preview.style.height = `${adjustedHeight}px`;
       preview.style.minHeight = `${adjustedHeight}px`;
       
+      // Toggle display
       textarea.style.display = 'none';
       preview.style.display = 'block';
     }
@@ -1626,26 +1258,66 @@ document.addEventListener('DOMContentLoaded',()=>{
         el.style.color = 'transparent';
       }
     });
+    const tableBody = d('itemsTableBody');
+    if (tableBody) {
+      const rows = tableBody.querySelectorAll('tr');
+      const visibleRows = Array.from(rows).filter(row => 
+        row.style.display !== 'none' && !row.dataset.hiddenForPrint
+      );
+      if (visibleRows.length < 5) {
+        rows.forEach(row => {
+          if (row.dataset.hiddenForPrint) {
+            row.style.display = 'table-row';
+            delete row.dataset.hiddenForPrint;
+            delete row.dataset.wasEmpty;
+          }
+        });
+        if (rows.length < 5) {
+          const rowsToAdd = 5 - rows.length;
+          for (let i = 0; i < rowsToAdd; i++) {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = rows[0].innerHTML;
+            newRow.dataset.addedForPrint = "true";
+            newRow.querySelectorAll('input').forEach(input => {
+              input.value = '';
+              input.style.border = 'none';
+            });
+            tableBody.appendChild(newRow);
+          }
+        }
+      }
+      tableBody.querySelectorAll('input').forEach(input => {
+        if (!input.value.trim()) {
+          input.style.border = 'none';
+          input.style.minHeight = '14px';
+        }
+      });
+    }
+    document.querySelectorAll('.header, .header *, table th, .warranty-term-table .term-label').forEach(el => {
+      el.style.webkitPrintColorAdjust = 'exact';
+      el.style.printColorAdjust = 'exact';
+    });
+    const notification = document.querySelector('.notification-overlay.show');
+    if (notification) {
+      notification.classList.remove('show');
+    }
   };
-
+  
   window.restoreDocumentAfterDisplay = function() {
     if (document.dataset && document.dataset.originalTitle) {
       document.title = document.dataset.originalTitle;
     }
     
-    // Restore button section
-    const buttonSection = document.querySelector('.button-section');
-    if (buttonSection) {
-      buttonSection.style.display = 'block';
-    }
-    
     const textarea = d('notes-textarea');
     const preview = d('notes-print-preview');
     if (textarea && preview) {
+      // Toggle display back
       textarea.style.display = 'block';
       preview.style.display = 'none';
+      
+      // Reset height
       textarea.style.height = 'auto';
-      S(textarea);
+      S(textarea); // Recalculate textarea height
     }
     
     document.querySelectorAll('[contenteditable="true"], .editable-field').forEach(el => {
@@ -1666,322 +1338,554 @@ document.addEventListener('DOMContentLoaded',()=>{
         delete el.dataset.wasEmpty;
       }
     });
+    document.querySelectorAll('tr[data-hidden-for-print="true"]').forEach(row => {
+      row.style.display = '';
+      delete row.dataset.hiddenForPrint;
+    });
+    document.querySelectorAll('tr[data-added-for-print="true"]').forEach(row => {
+      row.remove();
+    });
   };
 
-  // Add button event handlers
+  // Add print event handlers
+  window.addEventListener('beforeprint', window.prepareDocumentForDisplay);
+  window.addEventListener('afterprint', window.restoreDocumentAfterDisplay);
+}
+
+function N(e,t='info'){if(!e)return null;const r=document.querySelector('.notification-overlay');r&&(r.classList.remove('show'),setTimeout(()=>r.remove(),300));const n=document.createElement('div');n.className=`notification-overlay notification-${t}`;let i='',s='通知';t==='warning'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',s='注意'):t==='error'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',s='錯誤'):t==='success'?(i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',s='成功'):i='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>',n.innerHTML=`<div class="notification-modal"><div class="notification-header"><div class="notification-title"><span class="notification-icon">${i}</span><span>${s}</span></div></div><div class="notification-content">${e}</div><div class="notification-footer"><button class="notification-btn">我知道了</button></div></div>`,document.body.appendChild(n),n.offsetHeight,n.classList.add('show');const c=n.querySelector('.notification-btn');c&&(c.addEventListener('click',()=>{n.classList.remove('show'),setTimeout(()=>n.remove(),300)}),setTimeout(()=>c.focus(),100));const l=e=>{(e.key==='Escape'||e.key==='Enter')&&(n.classList.remove('show'),setTimeout(()=>{n.remove(),document.removeEventListener('keydown',l)},300))};return document.addEventListener('keydown',l),n}function h(e){if(e)try{const t=document.createRange(),r=window.getSelection();r&&(t.selectNodeContents(e),t.collapse(!1),r.removeAllRanges(),r.addRange(t))}catch{}}function y(e=T,t=''){try{const r=M[e.getMonth()],n=e.getFullYear().toString().slice(-2),i=String(e.getMonth()+1).padStart(2,"0"),s=String(e.getDate()).padStart(2,"0"),c=Math.random().toString(36).substring(2,4).toUpperCase();return`${t}${r}-${n}${i}${s}${c}`}catch{return`${t}${Math.random().toString(36).substring(2,8).toUpperCase()}`}}function E(){try{const e=d('quoteDate'),t=e?.value||T.toISOString().split("T")[0],r=new Date(t),n=d('quoteNumber');n&&(n.textContent=y(r))}catch{}}function I(){
+  try{
+    const e=d('quoteDate'),
+          t=d('quoteDateText');
+    if(e&&t){
+      e.value=T.toISOString().split("T")[0];
+      t.textContent=F.formatDate(e.value);
+      
+      const r=new Date(e.value),
+            n=d('quoteValidUntil'),
+            i=d('quoteValidText');
+      if(n&&i){
+        const s=new Date(r);
+        s.setDate(r.getDate()+C.DEFAULT_VALID_DAYS);
+        n.value=s.toISOString().split("T")[0];
+        i.textContent=F.formatDate(n.value);
+      }
+      
+      const o=d('deliveryDate'),
+            l=d('deliveryDateText');
+      if(o&&l){
+        const s=new Date(r);
+        s.setDate(r.getDate()+C.DEFAULT_DELIVERY_DAYS);
+        o.value=s.toISOString().split("T")[0];
+        l.textContent=F.formatDate(o.value);
+      }
+    }
+  }catch{}
+  E();
+}
+
+function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7;t++){const r=document.createElement("tr");r.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(r)}f()}catch{}}function v(){const e=d('itemsTableBody');if(e)try{const t=document.createElement("tr");t.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(t),f()}catch{}}function f(){const e=d('itemsTableBody'),t=d('subtotal'),r=d('totalShipping'),n=d('totalInstallation'),i=d('depositAmount'),s=d('grandTotal'),c=d('taxType'),l=d('taxAmount');if(!e||!s)return;let o=0,p=0,m=0;try{Array.from(e.children).forEach(u=>{const L=u.querySelector(".price-input"),w=u.querySelector(".quantity-input"),k=u.querySelector(".shipping-input"),B=u.querySelector(".installation-input");if(!L||!w)return;const V=F.parseNumber(L.value||"0"),W=Math.max(0,F.parseNumber(w.value||"0",!1)),O=F.parseNumber(k?.value||"0"),X=F.parseNumber(B?.value||"0");o+=Math.round(V*W),p+=O,m+=X});const y=o+p+m,x=c&&c.value==="taxed",U=x?Math.round(y*C.TAX_RATE):0,R=y+U,X=Math.round(R*C.DEPOSIT_RATE);t&&(t.textContent=F.formatCurrency(o)),r&&(r.textContent=F.formatCurrency(p)),n&&(n.textContent=F.formatCurrency(m)),i&&(i.textContent=F.formatCurrency(X)),s&&(s.textContent=F.formatCurrency(R)),l&&(l.textContent=F.formatCurrency(U))}catch{}}function _(e){if(!e)return;const t=e.value;if(t==='')return;try{(e.classList.contains('price-input')||e.classList.contains('shipping-input')||e.classList.contains('installation-input'))&&(t=>{const r=F.parseNumber(t);return r>C.MAX_VALUE?(N("數值超出最大限制","warning"),e.value=F.formatCurrency(C.MAX_VALUE)):r<C.MIN_VALUE?(N("數值超出最小限制","warning"),e.value=F.formatCurrency(C.MIN_VALUE)):e.value=F.formatCurrency(r),!0})(t)}catch{e.value=F.formatCurrency(0)}}function $(e){if(!e)return;try{const t=F.formatText(e.innerText.replace(/\n/g,"").trim(),e.getAttribute("data-type"));if(t===e.innerText)return;const r=window.getSelection();if(!r)return;const n=document.createRange();n.selectNodeContents(e),r.removeAllRanges(),r.addRange(n),document.execCommand("insertText",!1,t),h(e)}catch{}}function q(e){
+  e.preventDefault();
+  const t=D[e.target.id];
+  if(!t) return;
+  const r=d(t);
+  if(!r) return;
+  if('showPicker' in r) {
+    r.showPicker();
+  } else {
+    r.focus();
+    r.click();
+  }
+  r.dataset.pickerOpened = 'true';
+}function H(e,t,r){
+  if(!e||!t) return;
+  function handleDateChange() {
+    if(t) {
+      const quoteDate = d('quoteDate');
+      const quoteDateValue = new Date(quoteDate.value);
+      const currentDate = new Date(e.value);
+      
+      // 檢查有效期限和預計交期是否早於報價日
+      if (e.id === 'quoteValidUntil' || e.id === 'deliveryDate') {
+        if (currentDate < quoteDateValue) {
+          N('本欄位不得早於報價日', 'warning');
+          
+          // 根據欄位類型設置正確的日期
+          const newDate = new Date(quoteDateValue);
+          if (e.id === 'quoteValidUntil') {
+            newDate.setDate(quoteDateValue.getDate() + C.DEFAULT_VALID_DAYS);
+          } else if (e.id === 'deliveryDate') {
+            newDate.setDate(quoteDateValue.getDate() + C.DEFAULT_DELIVERY_DAYS);
+          }
+          
+          // 更新日期值
+          e.value = newDate.toISOString().split('T')[0];
+          t.textContent = F.formatDate(e.value);
+          return;
+        }
+      }
+      
+      t.textContent = F.formatDate(e.value);
+
+      // 當報價日期變動時，更新其他日期
+      if (e.id === 'quoteDate') {
+        const validUntil = d('quoteValidUntil');
+        const validUntilText = d('quoteValidText');
+        const deliveryDate = d('deliveryDate');
+        const deliveryDateText = d('deliveryDateText');
+
+        if (validUntil && validUntilText) {
+          const newValidDate = new Date(quoteDateValue);
+          newValidDate.setDate(quoteDateValue.getDate() + C.DEFAULT_VALID_DAYS);
+          validUntil.value = newValidDate.toISOString().split('T')[0];
+          validUntilText.textContent = F.formatDate(validUntil.value);
+        }
+
+        if (deliveryDate && deliveryDateText) {
+          const newDeliveryDate = new Date(quoteDateValue);
+          newDeliveryDate.setDate(quoteDateValue.getDate() + C.DEFAULT_DELIVERY_DAYS);
+          deliveryDate.value = newDeliveryDate.toISOString().split('T')[0];
+          deliveryDateText.textContent = F.formatDate(deliveryDate.value);
+        }
+      }
+    }
+    if(typeof r === 'function') {
+      r.call(e);
+    }
+    if(e.id === 'quoteDate') {
+      E();
+    }
+  }
+  e.addEventListener('change', handleDateChange);
+  e.addEventListener('input', handleDateChange);
+}function G(){
+  const e=d('notes-textarea');
+  if(e){
+    S(e);
+    e.addEventListener('input',function(){
+      S(this);
+      // Add trimming for notes textarea
+      if(this.value) {
+        this.value = this.value.trim();
+      }
+    });
+    e.addEventListener('paste',function(){
+      setTimeout(() => {
+        S(this);
+        // Add trimming for pasted content
+        if(this.value) {
+          this.value = this.value.trim();
+        }
+      }, 10);
+    });
+    // Add blur event handler for trimming
+    e.addEventListener('blur',function(){
+      if(this.value) {
+        this.value = this.value.trim();
+        S(this);
+      }
+    });
+  }
+}const j=b(()=>{const e=d('notes-textarea');e&&S(e)},50);
+
+function validateDateField(dateInputId) {
+  const dateInput = d(dateInputId);
+  if(!dateInput) return;
+  const changeEvent = new Event('change', { bubbles: true });
+  dateInput.dispatchEvent(changeEvent);
+}
+
+function S(e) {
+  if (!e) return;
+  e.style.height = 'auto';
+  e.style.height = e.scrollHeight + 'px';
+}
+
+function setupButtonHandlers() {
   const previewBtn = d('previewBtn');
   const generateImageBtn = d('generateImageBtn');
   const printPdfBtn = d('printPdfBtn');
 
-  if (previewBtn) {
-    previewBtn.addEventListener('click', () => {
-      window.prepareDocumentForDisplay();
-      // Create preview overlay
-      const overlay = document.createElement('div');
-      overlay.className = 'notification-overlay';
-      overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
-      
-      // Create preview container
-      const previewContainer = document.createElement('div');
-      previewContainer.className = 'notification-modal';
-      previewContainer.style.width = '90%';
-      previewContainer.style.maxWidth = '1200px';
-      previewContainer.style.height = '90vh';
-      previewContainer.style.padding = '0';
-      previewContainer.style.overflow = 'hidden';
-      previewContainer.style.display = 'flex';
-      previewContainer.style.flexDirection = 'column';
-      
-      // Create preview header
-      const previewHeader = document.createElement('div');
-      previewHeader.className = 'notification-header';
-      previewHeader.style.justifyContent = 'space-between';
-      previewHeader.style.alignItems = 'center';
-      previewHeader.style.padding = '10px 20px';
-      previewHeader.style.borderBottom = '1px solid var(--border)';
-      
-      const previewTitle = document.createElement('div');
-      previewTitle.className = 'notification-title';
-      previewTitle.textContent = '報價單預覽';
-      
-      const closeBtn = document.createElement('button');
-      closeBtn.innerHTML = '×';
-      closeBtn.style.cssText = 'background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-light);';
-      closeBtn.onclick = () => {
-        overlay.classList.remove('show');
-        setTimeout(() => {
-          overlay.remove();
-          window.restoreDocumentAfterDisplay();
-        }, 300);
-      };
-      
-      previewHeader.appendChild(previewTitle);
-      previewHeader.appendChild(closeBtn);
-      
-      // Create preview content
-      const previewContent = document.createElement('div');
-      previewContent.style.flex = '1';
-      previewContent.style.overflow = 'auto';
-      previewContent.style.padding = '20px';
-      previewContent.style.backgroundColor = '#fff';
-      
-      // Clone the container for preview
-      const containerClone = document.querySelector('.container').cloneNode(true);
-      
-      // Remove button section from clone
-      const buttonSectionClone = containerClone.querySelector('.button-section');
-      if (buttonSectionClone) {
-        buttonSectionClone.remove();
-      }
-
-      // Disable all editing capabilities in preview
-      containerClone.querySelectorAll('[contenteditable="true"]').forEach(el => {
-        el.removeAttribute('contenteditable');
-        el.style.cursor = 'default';
-      });
-
-      containerClone.querySelectorAll('input').forEach(input => {
-        input.readOnly = true;
-        input.style.cursor = 'default';
-        input.style.backgroundColor = 'transparent';
-        input.style.border = 'none';
-        input.style.pointerEvents = 'none';
-      });
-
-      // Remove all interactive elements
-      containerClone.querySelectorAll('.row-btn, .upload-logo, .items-controls').forEach(el => {
-        el.remove();
-      });
-      
-      // Preserve original styles
-      containerClone.style.cssText = `
-        max-width: 1000px;
-        margin: 0 auto;
-        background-color: #fff;
-        box-shadow: 0 0 20px rgba(0,0,0,.1);
-        width: 100%;
-        height: auto;
-      `;
-      
-      // Ensure all styles are properly applied
-      const styleSheet = document.createElement('style');
-      styleSheet.textContent = `
-        .preview-mode .container {
-          max-width: 1000px !important;
-          margin: 0 auto !important;
-          background-color: #fff !important;
-          box-shadow: 0 0 20px rgba(0,0,0,.1) !important;
-          width: 100% !important;
-          height: auto !important;
-        }
-        .preview-mode .header {
-          background-color: var(--primary) !important;
-          color: #fff !important;
-          padding: 10px 20px !important;
-        }
-        .preview-mode .quote-info {
-          padding: 8px 20px !important;
-          display: grid !important;
-          grid-template-columns: repeat(3, 1fr) !important;
-          gap: 15px !important;
-        }
-        .preview-mode .items-section {
-          padding: 8px 20px !important;
-        }
-        .preview-mode .bank-totals-section,
-        .preview-mode .legal-terms-section {
-          padding: 8px 20px !important;
-          display: grid !important;
-          grid-template-columns: 1fr 1fr !important;
-          gap: 8px !important;
-        }
-        .preview-mode .signature-section {
-          padding: 8px 20px !important;
-          display: flex !important;
-          justify-content: space-between !important;
-          gap: 15px !important;
-        }
-        .preview-mode table {
-          width: 100% !important;
-          border-collapse: collapse !important;
-          margin-top: 8px !important;
-        }
-        .preview-mode table th {
-          background-color: var(--primary) !important;
-          color: #fff !important;
-          padding: 6px 8px !important;
-        }
-        .preview-mode table td {
-          padding: 5px 8px !important;
-          border-bottom: 1px solid var(--border) !important;
-        }
-        .preview-mode .button-section {
-          display: none !important;
-        }
-        .preview-mode [contenteditable="true"] {
-          cursor: default !important;
-          pointer-events: none !important;
-        }
-        .preview-mode input {
-          cursor: default !important;
-          pointer-events: none !important;
-          background-color: transparent !important;
-          border: none !important;
-        }
-        .preview-mode .row-btn,
-        .preview-mode .upload-logo,
-        .preview-mode .items-controls {
-          display: none !important;
-        }
-      `;
-      
-      // Add preview mode class and styles
-      containerClone.classList.add('preview-mode');
-      previewContent.appendChild(styleSheet);
-      previewContent.appendChild(containerClone);
-      
-      // Assemble preview modal
-      previewContainer.appendChild(previewHeader);
-      previewContainer.appendChild(previewContent);
-      overlay.appendChild(previewContainer);
-      
-      // Add to document and show
-      document.body.appendChild(overlay);
-      requestAnimationFrame(() => {
-        overlay.classList.add('show');
-      });
-    });
+  if (!previewBtn || !generateImageBtn || !printPdfBtn) {
+    console.error('Button elements not found');
+    return;
   }
 
-  if (generateImageBtn) {
-    generateImageBtn.addEventListener('click', async () => {
-      try {
-        window.prepareDocumentForDisplay();
-        const container = document.querySelector('.container');
-        
-        // 設置更高的縮放比例
-        const scale = 6;
-        const canvas = await html2canvas(container, {
-          scale: scale,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          allowTaint: true,
-          foreignObjectRendering: false,
-          imageTimeout: 0,
-          removeContainer: false,
-          onclone: (clonedDoc) => {
-            // 確保克隆的文檔中所有圖片都已加載
-            const images = clonedDoc.getElementsByTagName('img');
-            return Promise.all(Array.from(images).map(img => {
-              if (img.complete) return Promise.resolve();
-              return new Promise(resolve => {
-                img.onload = resolve;
-                img.onerror = resolve;
-              });
-            }));
-          },
-          ignoreElements: (element) => {
-            return element.classList.contains('button-section') || 
-                   element.classList.contains('row-btn') || 
-                   element.classList.contains('upload-logo') || 
-                   element.classList.contains('items-controls');
+  previewBtn.addEventListener('click', () => {
+    f(); // 更新計算
+    
+    const containerForPreview = document.querySelector('.container').cloneNode(true);
+    
+    // Remove the button section
+    const buttonSection = containerForPreview.querySelector('.button-section');
+    if (buttonSection) {
+      buttonSection.remove();
+    }
+    
+    // Handle notes section
+    const originalNotesTextarea = d('notes-textarea');
+    const notesTextarea = containerForPreview.querySelector('#notes-textarea');
+    const notesPreview = containerForPreview.querySelector('#notes-print-preview');
+    
+    if (originalNotesTextarea && notesTextarea && notesPreview) {
+      // Copy the content and preserve line breaks
+      notesPreview.textContent = originalNotesTextarea.value.replace(/\n/g, '\n');
+      
+      // Calculate the height based on the original textarea
+      const originalHeight = originalNotesTextarea.scrollHeight;
+      const minHeight = 65;
+      const adjustedHeight = Math.max(minHeight, originalHeight);
+      
+      // Set the height for both elements with a small buffer
+      const finalHeight = adjustedHeight + 4; // Add 4px buffer for better display
+      notesTextarea.style.height = `${finalHeight}px`;
+      notesPreview.style.height = `${finalHeight}px`;
+      notesPreview.style.minHeight = `${finalHeight}px`;
+      
+      // Toggle display
+      notesTextarea.style.display = 'none';
+      notesPreview.style.display = 'block';
+    }
+    
+    // Make all inputs and editable fields read-only
+    containerForPreview.querySelectorAll('input, textarea, [contenteditable="true"]').forEach(element => {
+      if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+        element.readOnly = true;
+        element.style.backgroundColor = 'transparent';
+        element.style.border = 'none';
+        element.style.pointerEvents = 'none';
+      } else if (element.hasAttribute('contenteditable')) {
+        element.contentEditable = 'false';
+        element.style.pointerEvents = 'none';
+      }
+    });
+
+    // Update input values
+    containerForPreview.querySelectorAll('input').forEach(input => {
+      const originalInput = d(input.id);
+      if (originalInput) {
+        input.setAttribute('value', originalInput.value);
+      } else {
+        const originalInputs = Array.from(document.querySelector('.container').querySelectorAll(`input.${input.className.split(' ').join('.')}`));
+        const clonedInputs = Array.from(containerForPreview.querySelectorAll(`input.${input.className.split(' ').join('.')}`));
+        const index = clonedInputs.indexOf(input);
+        if (index !== -1 && originalInputs[index]) {
+          input.setAttribute('value', originalInputs[index].value);
+        }
+      }
+    });
+
+    // Update textarea content
+    containerForPreview.querySelectorAll('textarea').forEach(textarea => {
+      const originalTextarea = d(textarea.id);
+      if(originalTextarea) {
+        textarea.textContent = originalTextarea.value;
+      } else {
+        const originalTextareas = Array.from(document.querySelector('.container').querySelectorAll(`textarea.${textarea.className.split(' ').join('.')}`));
+        const clonedTextareas = Array.from(containerForPreview.querySelectorAll(`textarea.${textarea.className.split(' ').join('.')}`));
+        const index = clonedTextareas.indexOf(textarea);
+        if (index !== -1 && originalTextareas[index]) {
+          textarea.textContent = originalTextareas[index].value;
+        }
+      }
+    });
+
+    // Update select elements
+    containerForPreview.querySelectorAll('select').forEach(select => {
+      const originalSelect = d(select.id);
+      if(originalSelect) {
+        select.value = originalSelect.value;
+        select.disabled = true;
+        const selectedOption = select.querySelector(`option[value="${originalSelect.value}"]`);
+        if(selectedOption) {
+          select.querySelectorAll('option').forEach(opt => opt.removeAttribute('selected'));
+          selectedOption.setAttribute('selected', 'selected');
+        }
+      }
+    });
+
+    // 創建預覽窗口
+    const previewWindow = window.open('', '_blank');
+    if (!previewWindow) {
+      N('無法開啟預覽視窗，請檢查是否被瀏覽器阻擋', 'error');
+      return;
+    }
+
+    previewWindow.document.write(`
+      <!DOCTYPE html>
+      <html lang="zh-TW">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>${d('quoteNumber').textContent}</title>
+        <style>
+          ${Array.from(document.styleSheets)
+            .map(sheet => {
+              try {
+                return Array.from(sheet.cssRules || [])
+                  .map(rule => rule.cssText)
+                  .join('\n');
+              } catch (e) {
+                return '';
+              }
+            })
+            .join('\n')}
+          .button-section {
+            display: none !important;
           }
-        });
+          input, textarea, [contenteditable="true"] {
+            pointer-events: none !important;
+          }
+          #notes-textarea {
+            display: none !important;
+          }
+          #notes-print-preview {
+            display: block !important;
+            white-space: pre-wrap !important;
+            word-wrap: break-word !important;
+            overflow: visible !important;
+            height: ${originalNotesTextarea ? originalNotesTextarea.scrollHeight + 4 : 69}px !important;
+            min-height: ${originalNotesTextarea ? originalNotesTextarea.scrollHeight + 4 : 69}px !important;
+            font-family: Arial, sans-serif !important;
+          }
+        </style>
+      </head>
+      <body>
+        ${containerForPreview.outerHTML}  
+      </body>
+      </html>
+    `);
+    previewWindow.document.close();
+  });
 
-        // 創建一個新的 canvas 來處理高解析度
-        const finalCanvas = document.createElement('canvas');
-        const ctx = finalCanvas.getContext('2d');
-        
-        // 設置最終 canvas 的尺寸
-        finalCanvas.width = canvas.width;
-        finalCanvas.height = canvas.height;
-        
-        // 使用更好的圖像平滑算法
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        
-        // 繪製到最終 canvas
-        ctx.drawImage(canvas, 0, 0);
-        
-        const link = document.createElement('a');
-        link.download = `報價單_${d('quoteNumber').textContent}.png`;
-        
-        // 使用最高品質的 PNG，但限制最大尺寸
-        const maxDimension = 8000; // 最大尺寸限制
-        if (finalCanvas.width > maxDimension || finalCanvas.height > maxDimension) {
-          const ratio = Math.min(maxDimension / finalCanvas.width, maxDimension / finalCanvas.height);
-          const newWidth = Math.floor(finalCanvas.width * ratio);
-          const newHeight = Math.floor(finalCanvas.height * ratio);
-          
-          const resizedCanvas = document.createElement('canvas');
-          const resizedCtx = resizedCanvas.getContext('2d');
-          resizedCanvas.width = newWidth;
-          resizedCanvas.height = newHeight;
-          resizedCtx.imageSmoothingEnabled = true;
-          resizedCtx.imageSmoothingQuality = 'high';
-          resizedCtx.drawImage(finalCanvas, 0, 0, newWidth, newHeight);
-          
-          link.href = resizedCanvas.toDataURL('image/png', 1.0);
-        } else {
-          link.href = finalCanvas.toDataURL('image/png', 1.0);
-        }
-        
-        link.click();
-        
-        window.restoreDocumentAfterDisplay();
-      } catch (error) {
-        N('生成圖片時發生錯誤，請稍後再試', 'error');
-        console.error('Error generating image:', error);
-      }
-    });
-  }
+  generateImageBtn.addEventListener('click', () => {
+    const container = document.querySelector('.container');
+    const buttonSection = container.querySelector('.button-section');
+    
+    if (!container || !buttonSection) {
+      N('無法找到必要的元素', 'error');
+      return;
+    }
+    
+    f(); // Ensure calculations are up-to-date
+    window.prepareDocumentForDisplay();
+    buttonSection.style.display = 'none';
 
-  if (printPdfBtn) {
-    printPdfBtn.addEventListener('click', () => {
-      window.prepareDocumentForDisplay();
-      window.print();
+    html2canvas(container, {
+      scale: 6,
+      useCORS: true,
+      logging: false,
+      allowTaint: true,
+      backgroundColor: '#ffffff'
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png', 1.0);
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = `${d('quoteNumber').textContent || 'quote'}.png`;
+      link.click();
+    }).catch(err => {
+      console.error('Error generating image:', err);
+      N('生成圖片失敗', 'error');
+    }).finally(() => {
+      buttonSection.style.display = '';
       window.restoreDocumentAfterDisplay();
     });
-  }
+  });
 
-  // Rest of the code...
-});
-
-// 添加圖片上傳功能
-const logoContainer = document.getElementById('logo-container');
-const logoImg = document.getElementById('company-logo-img');
-const logoText = document.querySelector('.default-logo-text');
-const uploadLogo = document.getElementById('upload-logo');
-
-logoContainer.addEventListener('click', () => {
-  uploadLogo.click();
-});
-
-uploadLogo.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      logoImg.src = e.target.result;
-      logoImg.style.display = 'block';
-      logoText.style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-// 點擊圖片時可以重新上傳
-logoImg.addEventListener('click', (e) => {
-  e.stopPropagation();
-  uploadLogo.click();
-});
-
-// 如果沒有圖片，顯示文字
-if (!logoImg.src) {
-  logoImg.style.display = 'none';
-  logoText.style.display = 'block';
+  printPdfBtn.addEventListener('click', () => {
+    f(); // Ensure calculations are up-to-date
+    window.print();
+  });
 }
+
+function Q(){
+  const e=document.querySelector('.container'),
+        t=b(f,200),
+        r=d('logo-container'),
+        n=d('upload-logo');
+  
+  // Add date picker event handlers
+  Object.entries(D).forEach(([textId, inputId]) => {
+    const textElement = d(textId);
+    const inputElement = d(inputId);
+    if (textElement && inputElement) {
+      textElement.addEventListener('click', q);
+      H(inputElement, textElement);
+    }
+  });
+
+  const U=d('quoteTable');
+  if (U) {
+    const i = '.price-input, .shipping-input, .installation-input',
+          s = `${i}, .quantity-input, .category-input, .name-input, .unit-input`;
+    
+    // Add trimming for all input fields
+    function trimAllInputs() {
+      document.querySelectorAll('input.input-field').forEach(input => {
+        if (input.value) {
+          input.value = input.value.trim();
+        }
+      });
+    }
+
+    // Update input event handler for all inputs
+    U.addEventListener('input', c => {
+      if (c.target.matches(s)) {
+        if (c.target.matches(i)) {
+          _(c.target);
+        }
+        if (c.target.value) {
+          c.target.value = c.target.value.trim();
+        }
+        t();
+      }
+    });
+
+    // Add blur event handler for all inputs
+    U.addEventListener('blur', c => {
+      if (c.target.matches(s)) {
+        if (c.target.value) {
+          c.target.value = c.target.value.trim();
+        }
+        if (c.target.matches(i)) {
+          _(c.target);
+        }
+      }
+    }, true);
+
+    // Add paste event handler for all inputs
+    U.addEventListener('paste', c => {
+      if (c.target.matches(s)) {
+        setTimeout(() => {
+          if (c.target.value) {
+            c.target.value = c.target.value.trim();
+          }
+          if (c.target.matches(i)) {
+            _(c.target);
+          }
+          t();
+        }, 0);
+      }
+    });
+
+    // Add focus event handler
+    U.addEventListener('focus', c => {
+      if (c.target.tagName === 'INPUT' && c.target.matches(s)) {
+        c.target.select();
+      }
+    }, true);
+
+    // Add keydown event handler
+    U.addEventListener('keydown', c => {
+      if (c.key === 'Tab') {
+        const l = d('itemsTableBody');
+        if (!l) return;
+        const o = l.children;
+        if (!o.length) return;
+        const p = o[o.length - 1];
+        if (!p) return;
+        const m = p.querySelector('.shipping-input');
+        if (!m || c.target !== m || c.shiftKey) return;
+        c.preventDefault();
+        v();
+        setTimeout(() => {
+          const u = l.lastChild;
+          if (!u) return;
+          const L = u.querySelector('.category-input');
+          L && L.focus();
+        }, 0);
+      }
+    });
+  }
+
+  // Add global input trimming for all input fields
+  document.addEventListener('input', e => {
+    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
+      if (e.target.value) {
+        e.target.value = e.target.value.trim();
+      }
+    }
+  });
+
+  document.addEventListener('blur', e => {
+    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
+      if (e.target.value) {
+        e.target.value = e.target.value.trim();
+      }
+    }
+  }, true);
+
+  document.addEventListener('paste', e => {
+    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
+      setTimeout(() => {
+        if (e.target.value) {
+          e.target.value = e.target.value.trim();
+        }
+      }, 0);
+    }
+  });
+
+  const R = d('addItemBtn'),
+        X = d('deleteItemBtn'),
+        Y = d('taxType');
+  
+  R && R.addEventListener('click', () => { v(); j(); });
+  X && X.addEventListener('click', () => {
+    const i = d('itemsTableBody');
+    if (!i) return;
+    const bedeleted = i.lastChild;
+    const s = i.children;
+    s.length > 1 ? (bedeleted.remove(), t(), j()) : N("無法全部清空", "warning");
+  });
+  Y && Y.addEventListener('change', t);
+  window.addEventListener('resize', j);
+}
+
+function K(){
+  try{
+    I();
+    Q();
+    setupPrintHandlers();
+    g();
+    f();
+    G();
+    setupButtonHandlers();
+
+    // Add logo functionality
+    const logoContainer = d('logo-container');
+    const uploadLogo = d('upload-logo');
+    
+    if (logoContainer && uploadLogo) {
+      logoContainer.addEventListener('click', () => {
+        uploadLogo.click();
+      });
+
+      uploadLogo.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          if (!file.type.startsWith('image/')) {
+            N('請選擇圖片檔案', 'error');
+            return;
+          }
+          
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxHeight = '50px';
+            img.style.objectFit = 'contain';
+            
+            // Clear existing content
+            logoContainer.innerHTML = '';
+            logoContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  }catch{}
+}
+K();
+});
 </script>
 </body>
 </html>
