@@ -162,9 +162,9 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 .bank-info .info-group p{font-size:15px;line-height:1.2;margin-bottom:0;padding:2px 0;height:24px;display:flex;align-items:center;overflow:hidden}
 .bank-info span[contenteditable="true"]{font-size:15px;font-weight:600;line-height:1.2;min-height:18px;display:inline-block;overflow:hidden}
 .signature-section{width:100%;display:flex;justify-content:space-between;padding:8px 20px;gap:15px;align-items:stretch}
-.staff-info,.client-confirmation{width:calc(50% - 7.5px);text-align:left;background-color:#fff;padding:8px;border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;height:100%}
-.staff-info .info-group,.client-confirmation .info-group{margin-top:2px;margin-bottom:0;flex:1;display:flex;flex-direction:column;justify-content:space-between}
-.staff-info .info-label,.client-confirmation .info-label{width:70px}
+.staff-info,.client-confirmation{width:calc(50% - 7.5px);text-align:left;background-color:#fff;padding:8px;border:1px solid var(--border);border-radius:4px;display:flex;flex-direction:column;height:100%;min-height:120px}
+.staff-info .info-group,.client-confirmation .info-group{margin-top:2px;margin-bottom:0;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:90px}
+.staff-info .info-label,.client-confirmation .info-label{width:70px;display:inline-block;vertical-align:top}
 .notification-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
 .notification-overlay.show{opacity:1;visibility:visible}
 .notification-modal{background:#fff;border-radius:8px;width:90%;max-width:450px;box-shadow:0 10px 25px rgba(0,0,0,.25);transform:translateY(-20px);transition:transform .3s;overflow:hidden}
@@ -452,19 +452,33 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     width: 48% !important;
     background-color: #fff !important;
     padding: 5px !important;
+    min-height: 120px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   
-  .header, .quote-info, .bank-totals-section, .legal-terms-section, .signature-section {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+  .staff-info .info-group,
+  .client-confirmation .info-group {
+    min-height: 90px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
   
-  table thead {
-    display: table-header-group !important;
+  .staff-info .info-label,
+  .client-confirmation .info-label {
+    width: 70px !important;
+    display: inline-block !important;
+    vertical-align: top !important;
   }
   
-  .items-controls, .row-btn, .upload-logo, .notification-overlay, .button-section {
-    display: none !important;
+  .staff-info .editable-field,
+  .client-confirmation .editable-field {
+    display: inline-block !important;
+    min-height: 18px !important;
+    vertical-align: top !important;
   }
   
   @page {
@@ -842,19 +856,19 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     width: 100%;
     margin: 0;
     padding: 0;
-    line-height: 1.1; /* 更緊湊的行高 */
+    line-height: 1.1;
 }
 
 /* 客戶名稱樣式 */
 .client-info .info-group h4:nth-of-type(1) {
     font-weight: 600;
     color: var(--primary);
-    font-size: 18px; /* 從 16px 增加到 18px */
+    font-size: 18px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.1; /* 保持行高不變 */
-    margin-bottom: 2px; /* 保持間距不變 */
+    line-height: 1.1;
+    margin-bottom: 2px;
 }
 
 /* 客戶地址樣式 */
@@ -865,24 +879,29 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
-    line-height: 0.8 !important; /* 更緊湊的行高 */
-    margin-top: -5px !important; /* 更大的負邊距使地址更靠近名稱 */
-    margin-bottom: 0 !important;
+    line-height: 1.2;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 /* 打印樣式調整 */
 @media print {
     .client-info .info-group h4:nth-of-type(1) {
-        font-size: 16px !important; /* 打印時也相應調整 */
+        font-size: 16px !important;
         line-height: 1.1 !important;
         margin-bottom: 2px !important;
     }
     
     .client-info .info-group h4:nth-of-type(2) {
         font-size: 12px !important;
-        line-height: 0.8 !important; /* 打印時也保持緊湊行高 */
-        margin-top: -5px !important;
-        margin-bottom: 0 !important;
+        line-height: 1.2 !important;
+        margin-top: 2px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .client-info .info-group p {
+        margin-bottom: 2px !important;
+        line-height: 1.2 !important;
     }
 }
 
@@ -1021,6 +1040,44 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
     margin-top: 4px !important; /* 從 2px 增加到 4px */
   }
 }
+
+.totals-input {
+  width: 100%;
+  text-align: right;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 0 5px;
+  min-width: 80px;
+  transition: all 0.2s ease;
+}
+
+.totals-input:focus {
+  outline: none;
+  background-color: rgba(59,130,246,.08);
+  box-shadow: 0 0 0 1px rgba(59,130,246,.2);
+}
+
+.totals-input:hover {
+  background-color: rgba(241,245,249,.5);
+}
+
+@media print {
+  .totals-input {
+    border: none !important;
+    background: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  .totals-input:focus,
+  .totals-input:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -1052,7 +1109,7 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <div class="section-title">聯絡窗口</div>
 <div class="info-group">
 <p><span class="info-label">聯絡人：</span> <span contenteditable="true" data-placeholder="請輸入聯絡人資訊" class="editable-field"></span></p>
-<p><span class="info-label">電話：</span> <span contenteditable="true" data-placeholder="請輸入電話號碼" data-type="phone" class="editable-field"></span></p>
+<p><span class="info-label">聯絡電話：</span> <span contenteditable="true" data-placeholder="請輸入電話號碼" data-type="phone" class="editable-field"></span></p>
 <p><span class="info-label">電子郵件：</span> <span contenteditable="true" data-placeholder="請輸入電子郵件" data-type="email" class="editable-field"></span></p>
 </div>
 </div>
@@ -1119,10 +1176,10 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <div class="totals-container flex-column-container">
 <div class="section-title">總計金額</div>
 <div class="totals-table content-box-white">
-<div class="totals-row"><span class="totals-label">安裝合計</span><span class="totals-value" id="totalInstallation">0</span></div>
-<div class="totals-row"><span class="totals-label">運費合計</span><span class="totals-value" id="totalShipping">0</span></div>
-<div class="totals-row"><span class="totals-label">稅額合計</span><span class="totals-value" id="taxAmount">0</span></div>
-<div class="totals-row"><span class="totals-label">應付訂金</span><span class="totals-value" id="depositAmount">0</span></div>
+<div class="totals-row"><span class="totals-label">安裝合計</span><span class="totals-value"><input type="text" class="totals-input" id="totalInstallation" value="0"></span></div>
+<div class="totals-row"><span class="totals-label">運費合計</span><span class="totals-value"><input type="text" class="totals-input" id="totalShipping" value="0"></span></div>
+<div class="totals-row"><span class="totals-label">稅額合計</span><span class="totals-value"><input type="text" class="totals-input" id="taxAmount" value="0"></span></div>
+<div class="totals-row"><span class="totals-label">應付訂金</span><span class="totals-value"><input type="text" class="totals-input" id="depositAmount" value="0"></span></div>
 <div class="totals-row totals-final">
 <span class="totals-label">
 <select id="taxType" class="clean-select">
@@ -1130,7 +1187,7 @@ table tbody tr:last-child td:last-child{border-bottom-right-radius:5px}
 <option value="taxed">應稅總計金額</option>
 </select>
 </span>
-<span class="totals-value" id="grandTotal">0</span>
+<span class="totals-value"><input type="text" class="totals-input" id="grandTotal" value="0"></span>
 </div>
 </div>
 </div>
@@ -1381,7 +1438,89 @@ function N(e,t='info'){if(!e)return null;const r=document.querySelector('.notifi
   E();
 }
 
-function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7;t++){const r=document.createElement("tr");r.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(r)}f()}catch{}}function v(){const e=d('itemsTableBody');if(e)try{const t=document.createElement("tr");t.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(t),f()}catch{}}function f(){const e=d('itemsTableBody'),t=d('subtotal'),r=d('totalShipping'),n=d('totalInstallation'),i=d('depositAmount'),s=d('grandTotal'),c=d('taxType'),l=d('taxAmount');if(!e||!s)return;let o=0,p=0,m=0;try{Array.from(e.children).forEach(u=>{const L=u.querySelector(".price-input"),w=u.querySelector(".quantity-input"),k=u.querySelector(".shipping-input"),B=u.querySelector(".installation-input");if(!L||!w)return;const V=F.parseNumber(L.value||"0"),W=Math.max(0,F.parseNumber(w.value||"0",!1)),O=F.parseNumber(k?.value||"0"),X=F.parseNumber(B?.value||"0");o+=Math.round(V*W),p+=O,m+=X});const y=o+p+m,x=c&&c.value==="taxed",U=x?Math.round(y*C.TAX_RATE):0,R=y+U,X=Math.round(R*C.DEPOSIT_RATE);t&&(t.textContent=F.formatCurrency(o)),r&&(r.textContent=F.formatCurrency(p)),n&&(n.textContent=F.formatCurrency(m)),i&&(i.textContent=F.formatCurrency(X)),s&&(s.textContent=F.formatCurrency(R)),l&&(l.textContent=F.formatCurrency(U))}catch{}}function _(e){if(!e)return;const t=e.value;if(t==='')return;try{(e.classList.contains('price-input')||e.classList.contains('shipping-input')||e.classList.contains('installation-input'))&&(t=>{const r=F.parseNumber(t);return r>C.MAX_VALUE?(N("數值超出最大限制","warning"),e.value=F.formatCurrency(C.MAX_VALUE)):r<C.MIN_VALUE?(N("數值超出最小限制","warning"),e.value=F.formatCurrency(C.MIN_VALUE)):e.value=F.formatCurrency(r),!0})(t)}catch{e.value=F.formatCurrency(0)}}function $(e){if(!e)return;try{const t=F.formatText(e.innerText.replace(/\n/g,"").trim(),e.getAttribute("data-type"));if(t===e.innerText)return;const r=window.getSelection();if(!r)return;const n=document.createRange();n.selectNodeContents(e),r.removeAllRanges(),r.addRange(n),document.execCommand("insertText",!1,t),h(e)}catch{}}function q(e){
+function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7;t++){const r=document.createElement("tr");r.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(r)}f()}catch{}}function v(){const e=d('itemsTableBody');if(e)try{const t=document.createElement("tr");t.innerHTML=`<td><input type="text" class="category-input input-field" placeholder=""></td><td><input type="text" class="name-input input-field" placeholder=""></td><td style="text-align:center"><input type="text" class="price-input input-field" value=""><span class="original-price"></span></td><td class="text-center"><input type="number" class="quantity-input input-field" value="" min="0" step="0.01"></td><td class="text-center"><input type="text" class="unit-input input-field" value=""></td><td class="text-center"><input type="text" class="installation-input input-field" value=""></td><td class="text-center"><input type="text" class="shipping-input input-field" value=""></td>`,e.appendChild(t),f()}catch{}}function f(){
+  const e=d('itemsTableBody'),
+        t=d('subtotal'),
+        r=d('totalShipping'),
+        n=d('totalInstallation'),
+        i=d('depositAmount'),
+        s=d('grandTotal'),
+        c=d('taxType'),
+        l=d('taxAmount');
+  if(!e||!s)return;
+  let o=0,p=0,m=0;
+  try{
+    Array.from(e.children).forEach(u=>{
+      const L=u.querySelector(".price-input"),
+            w=u.querySelector(".quantity-input"),
+            k=u.querySelector(".shipping-input"),
+            B=u.querySelector(".installation-input");
+      if(!L||!w)return;
+      const V=F.parseNumber(L.value||"0"),
+            W=Math.max(0,F.parseNumber(w.value||"0",!1)),
+            O=F.parseNumber(k?.value||"0"),
+            X=F.parseNumber(B?.value||"0");
+      o+=Math.round(V*W);
+      p+=O;
+      m+=Math.round(X*W);
+    });
+    
+    // Update totals inputs
+    const updateTotalInput = (input, value) => {
+      if (input) {
+        input.value = F.formatCurrency(value);
+      }
+    };
+
+    const y=o+p+m,
+          x=c&&c.value==="taxed",
+          U=x?Math.round(y*C.TAX_RATE):0,
+          R=y+U,
+          X=Math.round(R*C.DEPOSIT_RATE);
+
+    updateTotalInput(n, m);
+    updateTotalInput(r, p);
+    updateTotalInput(l, U);
+    updateTotalInput(i, X);
+    updateTotalInput(s, R);
+    
+    t&&(t.textContent=F.formatCurrency(o));
+  }catch{}
+}
+
+// Add event listeners for totals inputs
+function setupTotalsInputs() {
+  const totalsInputs = document.querySelectorAll('.totals-input');
+  
+  totalsInputs.forEach(input => {
+    // Format on input
+    input.addEventListener('input', (e) => {
+      const value = F.parseNumber(e.target.value);
+      if (value > C.MAX_VALUE) {
+        N("數值超出最大限制", "warning");
+        e.target.value = F.formatCurrency(C.MAX_VALUE);
+      } else if (value < C.MIN_VALUE) {
+        N("數值超出最小限制", "warning");
+        e.target.value = F.formatCurrency(C.MIN_VALUE);
+      } else {
+        e.target.value = F.formatCurrency(value);
+      }
+    });
+
+    // Format on blur
+    input.addEventListener('blur', (e) => {
+      const value = F.parseNumber(e.target.value);
+      e.target.value = F.formatCurrency(value);
+    });
+
+    // Select all text on focus
+    input.addEventListener('focus', (e) => {
+      e.target.select();
+    });
+  });
+}
+
+function _(e){if(!e)return;const t=e.value;if(t==='')return;try{(e.classList.contains('price-input')||e.classList.contains('shipping-input')||e.classList.contains('installation-input'))&&(t=>{const r=F.parseNumber(t);return r>C.MAX_VALUE?(N("數值超出最大限制","warning"),e.value=F.formatCurrency(C.MAX_VALUE)):r<C.MIN_VALUE?(N("數值超出最小限制","warning"),e.value=F.formatCurrency(C.MIN_VALUE)):e.value=F.formatCurrency(r),!0})(t)}catch{e.value=F.formatCurrency(0)}}function $(e){if(!e)return;try{const t=F.formatText(e.innerText.replace(/\n/g,"").trim(),e.getAttribute("data-type"));if(t===e.innerText)return;const r=window.getSelection();if(!r)return;const n=document.createRange();n.selectNodeContents(e),r.removeAllRanges(),r.addRange(n),document.execCommand("insertText",!1,t),h(e)}catch{}}function q(e){
   e.preventDefault();
   const t=D[e.target.id];
   if(!t) return;
@@ -1482,6 +1621,17 @@ function g(){const e=d('itemsTableBody');if(e)try{e.innerHTML='';for(let t=0;t<7
         S(this);
       }
     });
+    // Add keydown event handler for Enter key
+    e.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + '\n' + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 1;
+        S(this);
+      }
+    });
   }
 }const j=b(()=>{const e=d('notes-textarea');e&&S(e)},50);
 
@@ -1509,8 +1659,6 @@ function setupButtonHandlers() {
   }
 
   previewBtn.addEventListener('click', () => {
-    f(); // 更新計算
-    
     const containerForPreview = document.querySelector('.container').cloneNode(true);
     
     // Remove the button section
@@ -1525,78 +1673,73 @@ function setupButtonHandlers() {
     const notesPreview = containerForPreview.querySelector('#notes-print-preview');
     
     if (originalNotesTextarea && notesTextarea && notesPreview) {
-      // Copy the content and preserve line breaks
       notesPreview.textContent = originalNotesTextarea.value.replace(/\n/g, '\n');
       
-      // Calculate the height based on the original textarea
       const originalHeight = originalNotesTextarea.scrollHeight;
       const minHeight = 65;
       const adjustedHeight = Math.max(minHeight, originalHeight);
       
-      // Set the height for both elements with a small buffer
-      const finalHeight = adjustedHeight + 4; // Add 4px buffer for better display
+      const finalHeight = adjustedHeight + 4;
       notesTextarea.style.height = `${finalHeight}px`;
       notesPreview.style.height = `${finalHeight}px`;
       notesPreview.style.minHeight = `${finalHeight}px`;
       
-      // Toggle display
       notesTextarea.style.display = 'none';
       notesPreview.style.display = 'block';
     }
     
-    // Make all inputs and editable fields read-only
+    // 複製所有輸入值到預覽視窗
     containerForPreview.querySelectorAll('input, textarea, [contenteditable="true"]').forEach(element => {
       if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-        element.readOnly = true;
-        element.style.backgroundColor = 'transparent';
-        element.style.border = 'none';
-        element.style.pointerEvents = 'none';
+        // 根據元素類型找到對應的原始元素
+        let originalElement;
+        if (element.id) {
+          originalElement = document.getElementById(element.id);
+        } else {
+          // 如果沒有 ID，使用類名和父元素結構來匹配
+          const parentElement = element.closest('tr, .info-group, .bank-info, .totals-table');
+          if (parentElement && parentElement.className) {
+            const parentClasses = parentElement.className.split(' ').filter(c => c);
+            if (parentClasses.length > 0) {
+              const originalParent = document.querySelector(`.${parentClasses[0]}`);
+              if (originalParent && element.className) {
+                const elementClasses = element.className.split(' ').filter(c => c);
+                if (elementClasses.length > 0) {
+                  originalElement = originalParent.querySelector(`.${elementClasses[0]}`);
+                }
+              }
+            }
+          }
+        }
+        
+        if (originalElement) {
+          element.value = originalElement.value;
+          element.readOnly = true;
+          element.style.backgroundColor = 'transparent';
+          element.style.border = 'none';
+          element.style.pointerEvents = 'none';
+        }
       } else if (element.hasAttribute('contenteditable')) {
-        element.contentEditable = 'false';
-        element.style.pointerEvents = 'none';
-      }
-    });
-
-    // Update input values
-    containerForPreview.querySelectorAll('input').forEach(input => {
-      const originalInput = d(input.id);
-      if (originalInput) {
-        input.setAttribute('value', originalInput.value);
-      } else {
-        const originalInputs = Array.from(document.querySelector('.container').querySelectorAll(`input.${input.className.split(' ').join('.')}`));
-        const clonedInputs = Array.from(containerForPreview.querySelectorAll(`input.${input.className.split(' ').join('.')}`));
-        const index = clonedInputs.indexOf(input);
-        if (index !== -1 && originalInputs[index]) {
-          input.setAttribute('value', originalInputs[index].value);
+        // 對於可編輯元素，使用 data-placeholder 屬性來匹配
+        const placeholder = element.getAttribute('data-placeholder');
+        if (placeholder) {
+          const originalElement = document.querySelector(`[data-placeholder="${placeholder}"]`);
+          if (originalElement) {
+            element.textContent = originalElement.textContent;
+            element.contentEditable = 'false';
+            element.style.pointerEvents = 'none';
+          }
         }
       }
     });
 
-    // Update textarea content
-    containerForPreview.querySelectorAll('textarea').forEach(textarea => {
-      const originalTextarea = d(textarea.id);
-      if(originalTextarea) {
-        textarea.textContent = originalTextarea.value;
-      } else {
-        const originalTextareas = Array.from(document.querySelector('.container').querySelectorAll(`textarea.${textarea.className.split(' ').join('.')}`));
-        const clonedTextareas = Array.from(containerForPreview.querySelectorAll(`textarea.${textarea.className.split(' ').join('.')}`));
-        const index = clonedTextareas.indexOf(textarea);
-        if (index !== -1 && originalTextareas[index]) {
-          textarea.textContent = originalTextareas[index].value;
-        }
-      }
-    });
-
-    // Update select elements
-    containerForPreview.querySelectorAll('select').forEach(select => {
-      const originalSelect = d(select.id);
-      if(originalSelect) {
-        select.value = originalSelect.value;
-        select.disabled = true;
-        const selectedOption = select.querySelector(`option[value="${originalSelect.value}"]`);
-        if(selectedOption) {
-          select.querySelectorAll('option').forEach(opt => opt.removeAttribute('selected'));
-          selectedOption.setAttribute('selected', 'selected');
+    // 複製總計金額
+    const totalsInputs = containerForPreview.querySelectorAll('.totals-input');
+    totalsInputs.forEach(input => {
+      if (input.id) {
+        const originalInput = document.getElementById(input.id);
+        if (originalInput) {
+          input.value = originalInput.value;
         }
       }
     });
@@ -1632,6 +1775,8 @@ function setupButtonHandlers() {
           }
           input, textarea, [contenteditable="true"] {
             pointer-events: none !important;
+            background-color: transparent !important;
+            border: none !important;
           }
           #notes-textarea {
             display: none !important;
@@ -1644,6 +1789,11 @@ function setupButtonHandlers() {
             height: ${originalNotesTextarea ? originalNotesTextarea.scrollHeight + 4 : 69}px !important;
             min-height: ${originalNotesTextarea ? originalNotesTextarea.scrollHeight + 4 : 69}px !important;
             font-family: Arial, sans-serif !important;
+          }
+          .totals-input {
+            text-align: right !important;
+            font-weight: 600 !important;
+            color: var(--text) !important;
           }
         </style>
       </head>
@@ -1664,7 +1814,6 @@ function setupButtonHandlers() {
       return;
     }
     
-    f(); // Ensure calculations are up-to-date
     window.prepareDocumentForDisplay();
     buttonSection.style.display = 'none';
 
@@ -1690,16 +1839,15 @@ function setupButtonHandlers() {
   });
 
   printPdfBtn.addEventListener('click', () => {
-    f(); // Ensure calculations are up-to-date
     window.print();
   });
 }
 
 function Q(){
-  const e=document.querySelector('.container'),
-        t=b(f,200),
-        r=d('logo-container'),
-        n=d('upload-logo');
+  const container = document.querySelector('.container'),
+        updateTotals = b(f,200),
+        logoContainer = d('logo-container'),
+        uploadLogo = d('upload-logo');
   
   // Add date picker event handlers
   Object.entries(D).forEach(([textId, inputId]) => {
@@ -1711,130 +1859,100 @@ function Q(){
     }
   });
 
-  const U=d('quoteTable');
-  if (U) {
-    const i = '.price-input, .shipping-input, .installation-input',
-          s = `${i}, .quantity-input, .category-input, .name-input, .unit-input`;
+  const quoteTable = d('quoteTable');
+  if (quoteTable) {
+    const priceInputs = '.price-input, .shipping-input, .installation-input',
+          allInputs = `${priceInputs}, .quantity-input, .category-input, .name-input, .unit-input`;
     
-    // Add trimming for all input fields
-    function trimAllInputs() {
-      document.querySelectorAll('input.input-field').forEach(input => {
-        if (input.value) {
-          input.value = input.value.trim();
+    // Consolidated input handling
+    function handleInput(event) {
+      const target = event.target;
+      if (target.matches(allInputs)) {
+        if (target.value) {
+          target.value = target.value.trim();
         }
-      });
+        if (target.matches(priceInputs)) {
+          _(target);
+        }
+        updateTotals();
+      }
     }
 
-    // Update input event handler for all inputs
-    U.addEventListener('input', c => {
-      if (c.target.matches(s)) {
-        if (c.target.matches(i)) {
-          _(c.target);
-        }
-        if (c.target.value) {
-          c.target.value = c.target.value.trim();
-        }
-        t();
-      }
-    });
-
-    // Add blur event handler for all inputs
-    U.addEventListener('blur', c => {
-      if (c.target.matches(s)) {
-        if (c.target.value) {
-          c.target.value = c.target.value.trim();
-        }
-        if (c.target.matches(i)) {
-          _(c.target);
-        }
-      }
-    }, true);
-
-    // Add paste event handler for all inputs
-    U.addEventListener('paste', c => {
-      if (c.target.matches(s)) {
-        setTimeout(() => {
-          if (c.target.value) {
-            c.target.value = c.target.value.trim();
-          }
-          if (c.target.matches(i)) {
-            _(c.target);
-          }
-          t();
-        }, 0);
+    // Add event listeners
+    quoteTable.addEventListener('input', handleInput);
+    quoteTable.addEventListener('blur', handleInput, true);
+    quoteTable.addEventListener('paste', event => {
+      if (event.target.matches(allInputs)) {
+        setTimeout(() => handleInput(event), 0);
       }
     });
 
     // Add focus event handler
-    U.addEventListener('focus', c => {
-      if (c.target.tagName === 'INPUT' && c.target.matches(s)) {
-        c.target.select();
+    quoteTable.addEventListener('focus', event => {
+      if (event.target.tagName === 'INPUT' && event.target.matches(allInputs)) {
+        event.target.select();
       }
     }, true);
 
-    // Add keydown event handler
-    U.addEventListener('keydown', c => {
-      if (c.key === 'Tab') {
-        const l = d('itemsTableBody');
-        if (!l) return;
-        const o = l.children;
-        if (!o.length) return;
-        const p = o[o.length - 1];
-        if (!p) return;
-        const m = p.querySelector('.shipping-input');
-        if (!m || c.target !== m || c.shiftKey) return;
-        c.preventDefault();
+    // Add keydown event handler for Tab key
+    quoteTable.addEventListener('keydown', event => {
+      if (event.key === 'Tab') {
+        const tableBody = d('itemsTableBody');
+        if (!tableBody) return;
+        
+        const rows = tableBody.children;
+        if (!rows.length) return;
+        
+        const lastRow = rows[rows.length - 1];
+        if (!lastRow) return;
+        
+        const lastInput = lastRow.querySelector('.shipping-input');
+        if (!lastInput || event.target !== lastInput || event.shiftKey) return;
+        
+        event.preventDefault();
         v();
         setTimeout(() => {
-          const u = l.lastChild;
-          if (!u) return;
-          const L = u.querySelector('.category-input');
-          L && L.focus();
+          const newRow = tableBody.lastChild;
+          if (!newRow) return;
+          const firstInput = newRow.querySelector('.category-input');
+          firstInput && firstInput.focus();
         }, 0);
       }
     });
   }
 
-  // Add global input trimming for all input fields
-  document.addEventListener('input', e => {
-    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
-      if (e.target.value) {
-        e.target.value = e.target.value.trim();
+  // Global input handling
+  function handleGlobalInput(event) {
+    if (event.target.tagName === 'INPUT' && event.target.classList.contains('input-field')) {
+      if (event.target.value) {
+        event.target.value = event.target.value.trim();
       }
+    }
+  }
+
+  document.addEventListener('input', handleGlobalInput);
+  document.addEventListener('blur', handleGlobalInput, true);
+  document.addEventListener('paste', event => {
+    if (event.target.tagName === 'INPUT' && event.target.classList.contains('input-field')) {
+      setTimeout(() => handleGlobalInput(event), 0);
     }
   });
 
-  document.addEventListener('blur', e => {
-    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
-      if (e.target.value) {
-        e.target.value = e.target.value.trim();
-      }
-    }
-  }, true);
-
-  document.addEventListener('paste', e => {
-    if (e.target.tagName === 'INPUT' && e.target.classList.contains('input-field')) {
-      setTimeout(() => {
-        if (e.target.value) {
-          e.target.value = e.target.value.trim();
-        }
-      }, 0);
-    }
-  });
-
-  const R = d('addItemBtn'),
-        X = d('deleteItemBtn'),
-        Y = d('taxType');
+  // Button handlers
+  const addItemBtn = d('addItemBtn'),
+        deleteItemBtn = d('deleteItemBtn'),
+        taxTypeSelect = d('taxType');
   
-  R && R.addEventListener('click', () => { v(); j(); });
-  X && X.addEventListener('click', () => {
-    const i = d('itemsTableBody');
-    if (!i) return;
-    const bedeleted = i.lastChild;
-    const s = i.children;
-    s.length > 1 ? (bedeleted.remove(), t(), j()) : N("無法全部清空", "warning");
+  addItemBtn && addItemBtn.addEventListener('click', () => { v(); j(); });
+  deleteItemBtn && deleteItemBtn.addEventListener('click', () => {
+    const tableBody = d('itemsTableBody');
+    if (!tableBody) return;
+    const lastRow = tableBody.lastChild;
+    const rows = tableBody.children;
+    rows.length > 1 ? (lastRow.remove(), updateTotals(), j()) : N("無法全部清空", "warning");
   });
-  Y && Y.addEventListener('change', t);
+  taxTypeSelect && taxTypeSelect.addEventListener('change', updateTotals);
+  
   window.addEventListener('resize', j);
 }
 
@@ -1847,6 +1965,7 @@ function K(){
     f();
     G();
     setupButtonHandlers();
+    setupTotalsInputs(); // Add this line
 
     // Add logo functionality
     const logoContainer = d('logo-container');
@@ -1878,6 +1997,36 @@ function K(){
           };
           reader.readAsDataURL(file);
         }
+      });
+    }
+
+    // Add synchronization between contact info and client confirmation
+    const contactInfo = document.querySelector('.contact-info');
+    const clientConfirmation = document.querySelector('.client-confirmation');
+    
+    if (contactInfo && clientConfirmation) {
+      const contactFields = contactInfo.querySelectorAll('.editable-field');
+      const clientFields = clientConfirmation.querySelectorAll('.editable-field');
+      
+      // Function to sync content from contact to client
+      function syncContent(sourceField, targetField) {
+        if (sourceField && targetField) {
+          const content = sourceField.textContent.trim();
+          if (content) {
+            targetField.textContent = content;
+          }
+        }
+      }
+      
+      // Add input event listeners only to contact fields
+      contactFields.forEach((field, index) => {
+        field.addEventListener('input', () => {
+          syncContent(field, clientFields[index]);
+        });
+        
+        field.addEventListener('blur', () => {
+          syncContent(field, clientFields[index]);
+        });
       });
     }
   }catch{}
