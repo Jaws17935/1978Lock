@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大草原計算機</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --stardust: rgba(255, 255, 255, 0.15);
+      --wormhole: #6b5bff;
+      --bg-dark: #0a0a1f;
+      --text-light: #f0f0f5;
+      --console-bg: rgba(20, 20, 40, 0.85);
+      --transition: all 0.3s ease;
+      --shadow-glow: 0 0 15px var(--wormhole);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .starfield {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(var(--stardust) 10%, transparent 11%) 0 0/25px 25px,
+        linear-gradient(to bottom, #000 0%, #1a1a3a 100%);
+      animation: warp 120s linear infinite;
+      transform-origin: center;
+    }
+
+    .holo-console {
+      position: relative;
+      background: var(--console-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--wormhole);
+      box-shadow: 0 0 60px rgba(107, 91, 255, 0.25);
+      padding: 2.5rem;
+      border-radius: 10px;
+      width: min(90%, 420px);
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--wormhole);
+    }
+
+    .link-button {
+      background: var(--wormhole);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      color: var(--text-light);
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: var(--transition);
+      margin-bottom: 1.5rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .link-button:hover {
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    #hayabusa-button {
+      margin-top: 2rem;
+      margin-bottom: 0;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input[type="number"] {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--wormhole);
+      color: var(--text-light);
+      padding: 0.9rem;
+      width: 85%;
+      font-size: 1rem;
+      border-radius: 4px;
+      text-align: center;
+      transition: var(--transition);
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+
+    input[type="number"]:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      box-shadow: var(--shadow-glow);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    #midPrice {
+      margin-top: 0.6rem;
+      font-size: 1rem;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    #resultBox {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed var(--wormhole);
+      color: var(--text-light);
+      width: 85%;
+      height: 90px;
+      margin-top: 1.5rem;
+      padding: 14px 1.2rem;
+      resize: none;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 4px;
+      transition: var(--transition);
+      overflow: hidden;
+      white-space: pre;
+    }
+
+    #resultBox:hover {
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+    }
+
+    @keyframes warp {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.02); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    @media (max-width: 480px) {
+      .holo-console { padding: 1.5rem; }
+      h1 { font-size: 1.2rem; }
+      input[type="number"], #resultBox { width: 90%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="starfield"></div>
+  <div class="holo-console">
+    <h1>〄 大草原計算機</h1>
+    <button class="link-button" onclick="openRatePopup()">台銀</button>
+    <div class="input-group">
+      <input type="number" id="buyAmount" step="0.01" 
+             oninput="calculateTrade()" 
+             onkeydown="handleKey(event, 'sellAmount')"
+             onpaste="handlePaste(event)"
+             onclick="clearInput(this)">
+      <input type="number" id="sellAmount" step="0.01" 
+             oninput="calculateTrade()" 
+             onkeydown="handleKey(event, 'buyAmount')"
+             onpaste="handlePaste(event)"
+             onclick="clearInput(this)">
+      <div id="midPrice"></div>
+    </div>
+    <textarea id="resultBox" readonly onclick="copyResult()"></textarea>
+    <button id="hayabusa-button" class="link-button" onclick="window.open('https://manager.line.biz/account/@687spxpu/richmenu/edit/11648965', '_blank')">隼付</button>
+  </div>
+
+  <script>
+    // 緩存 DOM 元素
+    const elements = {
+      buyAmount: document.getElementById("buyAmount"),
+      sellAmount: document.getElementById("sellAmount"),
+      midPrice: document.getElementById("midPrice"),
+      resultBox: document.getElementById("resultBox")
+    };
+
+    // 計算交易並更新中價
+    function calculateTrade() {
+      const buy = parseFloat(elements.buyAmount.value) || 0;
+      const sell = parseFloat(elements.sellAmount.value) || 0;
+
+      // 計算並顯示中價
+      const midPrice = (buy + sell) / 2;
+      if (buy > 0 && sell > 0) {
+        elements.midPrice.textContent = `中價：${midPrice.toFixed(2)}`;
+      } else {
+        elements.midPrice.textContent = "";
+      }
+
+      // 更新結果框
+      if (buy <= 0 || sell <= 0) {
+        elements.resultBox.value = "";
+        return;
+      }
+
+      const basePrice = Math.ceil((midPrice + 0.05) * 1000) / 1000;
+      const tenKPrice = Math.ceil((midPrice + 0.03) * 1000) / 1000;
+      const fiftyKPrice = Math.ceil((midPrice + 0.015) * 1000) / 1000;
+
+      const result = [
+        `基礎成本：${basePrice.toFixed(3)}`,
+        `滿萬優惠：${tenKPrice.toFixed(3)}`,
+        `五萬優惠：${fiftyKPrice.toFixed(3)}`
+      ].join("\n").trim();
+
+      elements.resultBox.value = result;
+    }
+
+    // 複製結果
+    function copyResult() {
+      if (!elements.resultBox.value.trim()) {
+        alert("請輸入數據");
+        return;
+      }
+      navigator.clipboard.writeText(elements.resultBox.value)
+        .then(() => alert("複製成功"))
+        .catch(() => alert("複製失敗；檢視權限"));
+    }
+
+    // 打開匯率視窗
+    function openRatePopup() {
+      const width = 600, height = 400;
+      const left = (screen.width - width) / 2;
+      const top = (screen.height - height) / 2;
+      window.open(
+        "https://rate.bot.com.tw/xrt?Lang=zh-TW",
+        "ratePopup",
+        `width=${width},height=${height},top=${top},left=${left},scrollbars=yes`
+      );
+    }
+
+    // 處理鍵盤事件，清空下一欄位
+    function handleKey(event, nextId) {
+      if (event.key === "Enter") {
+        const nextElement = document.getElementById(nextId);
+        nextElement.value = "";
+        calculateTrade();
+        nextElement.focus();
+      }
+    }
+
+    // 處理貼上事件，自動分割數值並複製結果
+    function handlePaste(event) {
+      event.preventDefault();
+      const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+      const values = pastedText.trim().split(/\s+|\t/);
+      const isFirstField = event.target.id === "buyAmount";
+
+      if (values.length >= 2) {
+        elements.buyAmount.value = values[0];
+        elements.sellAmount.value = values[1];
+        calculateTrade();
+        
+        // 如果是貼上在第一欄，且計算結果有效，自動複製結果
+        if (isFirstField && elements.resultBox.value.trim()) {
+          navigator.clipboard.writeText(elements.resultBox.value)
+            .then(() => alert("複製成功"))
+            .catch(() => alert("複製失敗；檢視權限"));
+        }
+      } else if (values.length === 1) {
+        event.target.value = values[0];
+        calculateTrade();
+      }
+    }
+
+    // 點擊輸入欄位時清空該欄位
+    function clearInput(input) {
+      input.value = "";
+      calculateTrade();
+    }
+
+    // 初始化
+    calculateTrade();
+  </script>
+</body>
+</html>

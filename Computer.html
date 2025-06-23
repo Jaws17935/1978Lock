@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>計算機</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #00ffcc;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: auto;
+      position: relative;
+    }
+
+    .dashboard {
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+      width: 380px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      margin: 12px;
+      border: 0.5px solid rgba(0, 255, 204, 0.3);
+    }
+
+    .input-section {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 6px;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .card h1 {
+      margin: 0 0 10px;
+      font-size: 1.6em;
+      color: #00ffcc;
+      text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+    }
+
+    .card label {
+      display: block;
+      margin: 4px auto 2px;
+      color: #00ffcc;
+      font-size: 0.95em;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .card input[type="text"] {
+      width: 85%;
+      max-width: 250px;
+      padding: 6px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 0.5px solid #00ffcc;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 0.9em;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .card input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+    }
+
+    .radio-group {
+      margin: 6px auto;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      width: fit-content;
+      flex-wrap: nowrap;
+    }
+
+    .radio-group label {
+      display: inline-flex;
+      align-items: center;
+      margin: 0;
+      font-size: 0.9em;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    .radio-group input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    .error-message {
+      color: #ff3366;
+      font-size: 0.9em;
+      margin: 2px auto;
+      display: block;
+      width: fit-content;
+    }
+
+    .formula-error {
+      color: #ff3366;
+      font-size: 0.9em;
+      margin: 2px auto;
+      display: block;
+      width: fit-content;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .result {
+      margin-top: 12px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 6px;
+      border: 0.5px solid #00ffcc;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+      max-width: 220px;
+      box-sizing: border-box;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .result p {
+      margin: 2px 0;
+      font-size: 0.9em;
+      color: #ffffff;
+      width: 100%;
+      text-align: center;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      animation: pulse 5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .weight-input-group,
+    .price-input-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85%;
+      max-width: 250px;
+      margin: 6px auto;
+      position: relative;
+    }
+
+    .weight-input-group input[type="text"],
+    .price-input-group input[type="text"] {
+      width: 100%;
+      padding: 6px 60px 6px 60px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 0.5px solid #00ffcc;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 0.9em;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .weight-mode-select,
+    .weight-unit-select,
+    .price-unit-select,
+    .price-currency-select {
+      position: absolute;
+      width: 50px;
+      padding: 6px;
+      background: rgba(0, 255, 204, 0.1);
+      border: none;
+      color: #ffffff;
+      font-size: 0.9em;
+      text-align: center;
+      box-sizing: border-box;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: none;
+      text-align-last: center;
+    }
+
+    .weight-mode-select,
+    .price-currency-select {
+      left: 1px;
+      top: 1px;
+      bottom: 1px;
+      border-right: 0.5px solid #00ffcc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .weight-unit-select,
+    .price-unit-select {
+      right: 1px;
+      top: 1px;
+      bottom: 1px;
+      border-left: 0.5px solid #00ffcc;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .weight-mode-select option,
+    .weight-unit-select option,
+    .price-unit-select option,
+    .price-currency-select option {
+      background: #0f0c29;
+      color: #00ffcc;
+      text-align: center;
+    }
+
+    /* 修改：材積相關樣式 */
+    .material-input-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85%;
+      max-width: 250px;
+      margin: 6px auto;
+      position: relative;
+      height: 32px;
+    }
+
+    .material-label {
+      position: absolute;
+      padding: 0;
+      background: rgba(0, 255, 204, 0.1);
+      border: none;
+      color: #ffffff;
+      font-size: 0.85em;
+      text-align: center;
+      box-sizing: border-box;
+      cursor: pointer;
+      min-width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    .material-label:first-child {
+      left: 1px;
+      top: 1px;
+      bottom: 1px;
+      border-right: 0.5px solid #00ffcc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .material-label:last-child {
+      right: 1px;
+      top: 1px;
+      bottom: 1px;
+      border-left: 0.5px solid #00ffcc;
+      border-radius: 0 5px 5px 0;
+    }
+
+    #material_count {
+      width: 100%;
+      padding: 0 60px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 0.5px solid #00ffcc;
+      border-radius: 5px;
+      color: #ffffff;
+      font-size: 0.85em;
+      text-align: center;
+      box-sizing: border-box;
+      line-height: 30px;
+      height: 30px;
+    }
+
+    #material_count:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    }
+
+    .material-normal {
+      color: #ffffff;
+      background: rgba(0, 255, 204, 0.1);
+    }
+
+    .material-normal.active {
+      color: #00ffcc;
+      text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+    }
+
+    .material-extra {
+      color: #ffffff;
+      background: rgba(0, 255, 204, 0.1);
+    }
+
+    .material-extra.active {
+      color: #ff3366;
+      text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
+    }
+
+    .material-input-group:hover {
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="dashboard">
+    <div class="card">
+      <div class="input-section">
+        <h1>計算機</h1>
+
+        <!-- 未知成本 (N) -->
+        <div id="section_unknown">
+          <!-- 單價 / 總價 -->
+          <div class="price-input-group">
+            <select id="price_currency" class="price-currency-select">
+              <option value="CNY" selected>CNY</option>
+              <option value="NTD">NTD</option>
+            </select>
+            <input type="text" id="product_price" value="">
+            <select id="price_unit" class="price-unit-select">
+              <option value="unit" selected>單價</option>
+              <option value="total">總價</option>
+            </select>
+          </div>
+          <span id="price_mode_error" class="error-message"></span>
+          <span id="product_price_error" class="error-message"></span>
+          <span id="product_price_formula_error" class="formula-error"></span>
+          
+          <label for="purchase_quantity">採購數量</label>
+          <input type="text" id="purchase_quantity" value="">
+          <span id="purchase_quantity_error" class="error-message"></span>
+          <span id="purchase_quantity_formula_error" class="formula-error"></span>
+          
+          <!-- 需郵費 / 無郵費 -->
+          <div class="radio-group">
+            <label><input type="radio" name="shipping_included" id="shipping_included_no" value="N" checked tabindex="0"> 無郵費</label>
+            <label><input type="radio" name="shipping_included" id="shipping_included_yes" value="Y" tabindex="0"> 需郵費</label>
+          </div>
+          <span id="shipping_included_error" class="error-message"></span>
+          <input type="text" id="inland_shipping" value="">
+          <span id="inland_shipping_error" class="error-message"></span>
+          <span id="inland_shipping_formula_error" class="formula-error"></span>
+          
+          <!-- 重量輸入框 -->
+          <div class="weight-input-group">
+            <select id="weight_mode" class="weight-mode-select">
+              <option value="single" selected>單重</option>
+              <option value="total">總重</option>
+            </select>
+            <input type="text" id="weight_value" value="">
+            <select id="weight_unit" class="weight-unit-select">
+              <option value="g">G</option>
+              <option value="kg" selected>KG</option>
+            </select>
+          </div>
+          <span id="weight_value_error" class="error-message"></span>
+          <span id="weight_value_formula_error" class="formula-error"></span>
+
+          <!-- 修改：商品材數選項 -->
+          <div class="material-input-group">
+            <span class="material-label material-normal">無材</span>
+            <input type="text" id="material_count" value="">
+            <span class="material-label material-extra">計材</span>
+          </div>
+          <span id="material_count_error" class="error-message"></span>
+          <span id="material_count_formula_error" class="formula-error"></span>
+
+          <label for="exchange_rate">採購匯率</label>
+          <input type="text" id="exchange_rate" value="4.5">
+          <span id="exchange_rate_error" class="error-message"></span>
+          <span id="exchange_rate_formula_error" class="formula-error"></span>
+          
+          <label for="international_shipping">國際運費</label>
+          <input type="text" id="international_shipping" value="35">
+          <span id="international_shipping_error" class="error-message"></span>
+          <span id="international_shipping_formula_error" class="formula-error"></span>
+          
+          <label for="platform_commission_rate_n">平台抽成</label>
+          <input type="text" id="platform_commission_rate_n" value="23.5">
+          <span id="platform_commission_rate_n_error" class="error-message"></span>
+          <span id="platform_commission_rate_n_formula_error" class="formula-error"></span>
+          
+          <label for="profit_margin_rate_n">實際定價</label>
+          <input type="text" id="profit_margin_rate_n" value="">
+          <span id="profit_margin_rate_n_error" class="error-message"></span>
+          <span id="profit_margin_rate_n_formula_error" class="formula-error"></span>
+        </div>
+      </div>
+
+      <!-- 結果區 -->
+      <div class="result" id="result_area" style="display:none;">
+        <p id="result_single_weight"></p>
+        <p id="result_total_weight"></p> <!-- 總重顯示位置 -->
+        <p id="result_extra_material_fee"></p> <!-- 超材顯示位置 -->
+        <p id="result_single_cost"></p>
+        <p id="result_total_cost"></p>
+        <p>建議定價：<span id="suggested_pricing"></span></p>
+        <p>定價損益：<span id="suggested_profit_loss"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 快速取得常用元素
+    const $ = id => document.getElementById(id);
+    const sectionUnknown = $('section_unknown'),
+          priceUnitSelect = $('price_unit'),
+          priceCurrencySelect = $('price_currency'),
+          shippingIncludedYes = $('shipping_included_yes'),
+          weightModeSelect = $('weight_mode'),
+          weightUnitSelect = $('weight_unit'),
+          inlandShippingField = $('inland_shipping'),
+          resultArea = $('result_area');
+
+    /**
+     * evaluateFormula(str):
+     * - 先驗證字串只含允許的數字與運算符號
+     * - 若合法則用 Function 動態計算
+     * - 非法或失敗則回傳 NaN
+     */
+    const evaluateFormula = str => {
+      if (!str) return 0;
+      if (!/^[0-9+\-*/().\s]+$/.test(str)) {
+        return NaN;
+      }
+      // 檢查是否以運算符號結尾，如果是則移除最後的運算符號
+      if (/[+\-*/]$/.test(str)) {
+        str = str.slice(0, -1);
+      }
+      try {
+        return Function('"use strict"; return (' + str + ');')();
+      } catch (e) {
+        return NaN;
+      }
+    };
+
+    /**
+     * getValidFloat(id, minVal, required):
+     *  - 先用 evaluateFormula() 轉數字
+     *  - 檢查是否 >= minVal, 若不合法則回傳 null
+     */
+    const getValidFloat = (id, minVal, required) => {
+      const field = $(id),
+            errSpan = $(id + '_error'),
+            formulaErrSpan = $(id + '_formula_error'),
+            valStr = field ? field.value.trim() : '';
+
+      if (!field) return null;
+
+      if (required && valStr === '') {
+        if (errSpan) errSpan.innerText = '為必填項目。';
+        return null;
+      }
+
+      if (!required && valStr === '') {
+        return 0;
+      }
+
+      const valNum = parseFloat(valStr);
+      if (isNaN(valNum)) {
+        if (formulaErrSpan) formulaErrSpan.innerText = '請輸入正確數值';
+        return null;
+      }
+
+      // 特別處理平台抽成和實際利潤，允許0值
+      if ((id === 'platform_commission_rate_n' || id === 'profit_margin_rate_n') && valNum === 0) {
+        return 0;
+      }
+
+      if (valNum < minVal) {
+        if (errSpan) {
+          if (id === 'material_count') {
+            errSpan.innerText = '材數必須大於6材';
+          } else {
+            errSpan.innerText = `需大於0數值`;
+          }
+        }
+        return null;
+      }
+
+      return valNum;
+    };
+
+    // 初始事件設定
+    window.addEventListener('DOMContentLoaded', () => {
+      // 其餘改變事件: 價格模式 / 郵費 / 重量模式 / 重量單位 / 材數模式
+      [
+        priceUnitSelect,
+        priceCurrencySelect,
+        shippingIncludedYes,
+        $('shipping_included_no'),
+        weightModeSelect,
+        weightUnitSelect,
+        $('material_count')
+      ].forEach(el =>
+        el.addEventListener('change', () => {
+          if (el === priceUnitSelect || el === priceCurrencySelect) {
+            handleCurrencyMode();
+          } else if (el === shippingIncludedYes || el === $('shipping_included_no')) {
+            handleShippingMode();
+          } else {
+            calculate();
+          }
+        })
+      );
+
+      handleCurrencyMode();
+      handleShippingMode();
+      calculate();
+      attachEnterKeyListeners();
+      
+      // 聚焦到第一個輸入框（商品價格）
+      $('product_price').focus();
+
+      // 添加材積輸入監聽
+      $('material_count').addEventListener('input', () => {
+        handleMaterialInput();
+        calculate();
+      });
+
+      // 初始設置
+      handleMaterialInput();
+    });
+
+    // 依幣別切換顯示欄位
+    const handleCurrencyMode = () => {
+      const isCNY = priceCurrencySelect.value === 'CNY';
+      const fieldsToToggle = [
+        'shipping_included_yes',
+        'shipping_included_no',
+        'weight_value',
+        'weight_mode',
+        'weight_unit',
+        'material_count',
+        'exchange_rate',
+        'international_shipping'
+      ];
+
+      // 隱藏/顯示所有相關欄位
+      fieldsToToggle.forEach(fieldId => {
+        const field = $(fieldId);
+        if (field) {
+          if (field.type === 'radio') {
+            field.parentElement.style.display = isCNY ? 'inline-flex' : 'none';
+          } else if (field.type === 'select') {
+            field.parentElement.style.display = isCNY ? 'block' : 'none';
+          } else {
+            field.style.display = isCNY ? 'block' : 'none';
+          }
+        }
+      });
+
+      // 特別處理內地運費欄位
+      if (isCNY) {
+        handleShippingMode();
+      } else {
+        inlandShippingField.style.display = 'none';
+        inlandShippingField.value = '';
+        inlandShippingField.disabled = true;
+      }
+
+      // 更新標籤顯示
+      const labels = document.querySelectorAll('.card label');
+      labels.forEach(label => {
+        const fieldId = label.getAttribute('for');
+        if (fieldId && fieldsToToggle.includes(fieldId)) {
+          label.style.display = isCNY ? 'block' : 'none';
+        }
+      });
+
+      // 特別處理材積相關元素
+      const materialElements = [
+        document.querySelector('.material-input-group'),
+        document.querySelector('#material_count_error'),
+        document.querySelector('#material_count_formula_error')
+      ];
+
+      materialElements.forEach(element => {
+        if (element) {
+          element.style.display = isCNY ? '' : 'none';
+        }
+      });
+
+      // 特別處理重量輸入組
+      const weightInputGroup = document.querySelector('.weight-input-group');
+      if (weightInputGroup) {
+        weightInputGroup.style.display = isCNY ? 'flex' : 'none';
+      }
+
+      // 處理採購數量顯示
+      if (!isCNY) {
+        const purchaseQuantityLabel = document.querySelector('label[for="purchase_quantity"]');
+        const purchaseQuantityInput = $('purchase_quantity');
+        if (priceUnitSelect.value === 'total') {
+          if (purchaseQuantityLabel) purchaseQuantityLabel.style.display = 'block';
+          if (purchaseQuantityInput) purchaseQuantityInput.style.display = 'block';
+        } else {
+          if (purchaseQuantityLabel) purchaseQuantityLabel.style.display = 'none';
+          if (purchaseQuantityInput) purchaseQuantityInput.style.display = 'none';
+        }
+      }
+
+      // 清空所有重量和材積相關的顯示
+      if (!isCNY) {
+        $('result_extra_material_fee').innerText = '';
+        $('result_single_weight').innerText = '';
+        $('result_total_weight').innerText = '';
+        $('result_single_weight').style.display = 'none';
+        $('result_total_weight').style.display = 'none';
+        $('result_extra_material_fee').style.display = 'none';
+      } else {
+        $('result_single_weight').style.display = 'block';
+        $('result_total_weight').style.display = 'block';
+        $('result_extra_material_fee').style.display = 'block';
+      }
+
+      calculate();
+    };
+
+    // 依是否需郵費切換內地運費欄位
+    const handleShippingMode = () => {
+      if (shippingIncludedYes.checked) {
+        inlandShippingField.style.display = 'block';
+        inlandShippingField.disabled = false;
+        inlandShippingField.value = ''; // 預設值設為空
+      } else {
+        inlandShippingField.style.display = 'none';
+        inlandShippingField.value = ''; // 保持為空
+        inlandShippingField.disabled = true;
+      }
+      calculate();
+    };
+
+    // 動態建立跳欄順序
+    const getFlowOrder = () => {
+      let flow = [
+        $('product_price'),
+        $('purchase_quantity')
+      ];
+
+      // 根據幣別決定是否加入郵費選項
+      if (priceCurrencySelect.value === 'CNY') {
+        // 加入郵費選項
+        if (shippingIncludedYes.checked) {
+          flow.push(inlandShippingField);
+        }
+
+        flow.push(
+          $('weight_value'),
+          $('material_count'),
+          $('exchange_rate'),
+          $('international_shipping')
+        );
+      }
+
+      flow.push(
+        $('platform_commission_rate_n'),
+        $('profit_margin_rate_n')
+      );
+
+      // 過濾掉不可見或禁用的元素
+      return flow.filter(el => el && el.style.display !== 'none' && !el.disabled);
+    };
+
+    // 建立跳欄順序 & 綁定事件
+    const attachEnterKeyListeners = () => {
+      const flowOrder = getFlowOrder();
+      flowOrder.forEach((elem, index) => {
+        // 新增：處理輸入事件
+        if (elem.type === 'text') {
+          elem.addEventListener('input', e => {
+            let value = e.target.value;
+            // 如果第一位是0且後面有數字，去掉0
+            if (value.length > 1 && value[0] === '0' && /^[1-9]/.test(value[1])) {
+              e.target.value = value.substring(1);
+            }
+            calculate();
+          });
+
+          // 新增：處理失焦事件
+          elem.addEventListener('blur', e => {
+            let value = e.target.value;
+            if (value.length > 1 && value[0] === '0' && /^[1-9]/.test(value[1])) {
+              e.target.value = value.substring(1);
+            }
+            // 計算數學表達式
+            const formula = value.trim();
+            if (formula) {
+              const result = evaluateFormula(formula);
+              if (!isNaN(result)) {
+                e.target.value = result;
+                if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '';
+              } else {
+                if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '請輸入正確數值';
+              }
+            }
+            calculate();
+          });
+
+          // 新增：處理上下鍵事件
+          elem.removeEventListener('keydown', elem._keydownHandler);
+          elem._keydownHandler = e => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+              e.preventDefault();
+              e.stopPropagation();
+              let value = parseFloat(e.target.value);
+              if (isNaN(value)) value = 0;
+              
+              value = value + (e.key === 'ArrowUp' ? 1 : -1);
+              
+              // 確保值不會小於0
+              if (value < 0) value = 0;
+              
+              // 根據欄位ID決定小數位數
+              let decimalPlaces = 0;
+              if (elem.id === 'exchange_rate') {
+                decimalPlaces = 2;
+              } else if (elem.id === 'platform_commission_rate_n' || elem.id === 'profit_margin_rate_n') {
+                decimalPlaces = 1;
+              }
+              
+              e.target.value = value.toFixed(decimalPlaces);
+              calculate();
+            }
+          };
+          elem.addEventListener('keydown', elem._keydownHandler);
+
+          // 新增：處理點擊事件
+          elem.addEventListener('click', e => {
+            // 將游標移到最後
+            const len = e.target.value.length;
+            e.target.setSelectionRange(len, len);
+          });
+
+          // 新增：處理聚焦事件
+          elem.addEventListener('focus', e => {
+            // 將游標移到最後
+            const len = e.target.value.length;
+            e.target.setSelectionRange(len, len);
+          });
+
+          // 修改：處理 Enter 鍵事件
+          elem.onkeydown = event => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              if (elem.type === 'text') {
+                const formula = elem.value.trim();
+                if (!formula) {
+                  elem.value = '';
+                  if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '';
+                } else {
+                  const result = evaluateFormula(formula);
+                  if (!isNaN(result)) {
+                    elem.value = result;
+                    if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '';
+                  } else {
+                    if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '請輸入正確數值';
+                  }
+                }
+              }
+              calculate();
+              const nextIndex = (index + 1) % flowOrder.length;
+              flowOrder[nextIndex].focus();
+            } else if (event.key === 'Backspace' || event.key === 'Delete') {
+              if (elem.type === 'text') {
+                elem.value = '';
+                if ($(elem.id + '_formula_error')) $(elem.id + '_formula_error').innerText = '';
+                calculate();
+              }
+            }
+          };
+        }
+      });
+    };
+
+    // 核心計算
+    const calculate = () => {
+      document.querySelectorAll('.error-message').forEach(span => (span.innerText = ''));
+      document.querySelectorAll('.formula-error').forEach(span => {
+        if (!span.innerText.includes('請輸入正確數值')) {
+          span.innerText = '';
+        }
+      });
+      
+      resultArea.style.display = 'none';
+
+      let pCommission = 0,
+          pProfit = 0,
+          singleCost = 0;
+
+      // 取得所有輸入值，如果為空則使用0
+      const productPriceVal = getValidFloat('product_price', 0, false) || 0;
+      pCommission = getValidFloat('platform_commission_rate_n', 0, false) || 0;
+      pProfit = getValidFloat('profit_margin_rate_n', 0, false) || 0;
+
+      if (priceCurrencySelect.value === 'CNY') {
+        // CNY 模式：使用原公式計算
+        const purchaseQuantityVal = getValidFloat('purchase_quantity', 0, false) || 0;
+        const exchangeRateVal = getValidFloat('exchange_rate', 0, false) || 0;
+        const internationalShippingVal = getValidFloat('international_shipping', 0, false) || 0;
+        const inlandShippingVal = shippingIncludedYes.checked ? (getValidFloat('inland_shipping', 0, false) || 0) : 0;
+        const rawWeightVal = getValidFloat('weight_value', 0, false) || 0;
+        const materialCountVal = getValidFloat('material_count', 0, false) || 0;
+
+        const totalProductCost = priceUnitSelect.value === 'unit'
+          ? productPriceVal * purchaseQuantityVal
+          : productPriceVal;
+
+        const costAfterExchange = (totalProductCost + inlandShippingVal) * exchangeRateVal;
+
+        // 判斷現在是 "g" or "kg" -> 轉成 kg
+        const weightUnitFactor = weightUnitSelect.value === 'kg' ? 1 : 0.001;
+        const rawWeightValInKg = rawWeightVal * weightUnitFactor;
+
+        // 若是「單重」需 * 數量，若「總重」則不再乘以數量
+        const finalWeightVal = weightModeSelect.value === 'single'
+          ? rawWeightValInKg * purchaseQuantityVal
+          : rawWeightValInKg;
+
+        // 計算材數額外運費
+        let extraShippingFee = 0;
+        let materialStatus = '';
+        if (materialCountVal > 6) {
+          extraShippingFee = (materialCountVal - 6) * 25;
+          materialStatus = `計材：${extraShippingFee.toFixed(2)} 元`;
+        } else {
+          materialStatus = '';
+        }
+        $('result_extra_material_fee').innerText = materialStatus;
+
+        // 國際運費：finalWeightVal (kg) * internationalShippingVal (單位：NT$/kg) + 超材運費
+        const internationalShippingTotal = (finalWeightVal * internationalShippingVal) + extraShippingFee;
+
+        // 總成本
+        const totalCost = costAfterExchange + internationalShippingTotal;
+
+        // 單重
+        const singleWeight = finalWeightVal / (purchaseQuantityVal || 1);
+        $('result_single_weight').innerText = `單重：${singleWeight.toFixed(2)} Kg`;
+
+        // 顯示總重
+        $('result_total_weight').innerText = `總重：${finalWeightVal.toFixed(2)} Kg`;
+
+        $('result_total_cost').innerText = `總成本：${totalCost.toFixed(2)} 元`;
+        singleCost = totalCost / (purchaseQuantityVal || 1);
+      } else {
+        // NTD 模式：計算成本
+        const purchaseQuantityVal = getValidFloat('purchase_quantity', 0, false) || 0;
+        
+        if (priceUnitSelect.value === 'unit') {
+          // 單價模式
+          singleCost = productPriceVal;
+          $('result_total_cost').innerText = `總成本：${singleCost.toFixed(2)} 元`;
+        } else {
+          // 總價模式
+          if (purchaseQuantityVal > 0) {
+            singleCost = productPriceVal / purchaseQuantityVal;
+            $('result_total_cost').innerText = `總成本：${productPriceVal.toFixed(2)} 元`;
+          } else {
+            singleCost = 0;
+            $('result_total_cost').innerText = `總成本：0 元`;
+          }
+        }
+      }
+
+      $('result_single_cost').innerText = `單價：${singleCost.toFixed(2)} 元`;
+
+      // 計算建議定價和定價損益
+      const commissionRate = pCommission / 100;
+      const actualPrice = pProfit;
+
+      // 建議定價 = 成本 / (1 - 平台抽成率)
+      const suggestedPricing = singleCost / (1 - commissionRate);
+      
+      // 定價損益 = 實際定價 * (1 - 平台抽成率) - 成本
+      const finalProfit = (actualPrice * (1 - commissionRate)) - singleCost;
+
+      $('suggested_pricing').innerText = suggestedPricing.toFixed(2) + ' 元';
+      $('suggested_profit_loss').innerText = finalProfit.toFixed(2) + ' 元';
+
+      resultArea.style.display = 'block';
+    };
+
+    // 修改：處理材積輸入事件
+    const handleMaterialInput = () => {
+      const materialCount = parseFloat($('material_count').value) || 6;
+      const normalLabel = document.querySelector('.material-normal');
+      const extraLabel = document.querySelector('.material-extra');
+
+      if (materialCount <= 6) {
+        normalLabel.classList.add('active');
+        extraLabel.classList.remove('active');
+      } else {
+        normalLabel.classList.remove('active');
+        extraLabel.classList.add('active');
+      }
+    };
+  </script>
+</body>
+</html>
